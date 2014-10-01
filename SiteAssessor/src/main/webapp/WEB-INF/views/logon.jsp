@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Citihub TIA Site Assessment Framework</title>
+<title>Citihub Request for Information</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -21,8 +21,6 @@
 	src="http://code.jquery.com/jquery-2.1.1.js"></script>
 <script
 	src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="twitter-bootstrap-v2/docs/assets/js/jquery.js"></script>  
-<script src="twitter-bootstrap-v2/docs/assets/js/bootstrap-alert.js"></script> 
 
 <style type="text/css">
 .bs-example {
@@ -42,9 +40,9 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" id="home" href="/home"><img
+			<a class="navbar-brand" id="home" href="www.citihub.com"><img
 				src="./resources/images/logo.png"></a> <a class="navbar-brand"
-				href="/home">TIA Site Assessment Framework</a>
+				href="www.citihub.com">Citihub Request for Information</a>
 		</div>
 	</div>
 	</nav>

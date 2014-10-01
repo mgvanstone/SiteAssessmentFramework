@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Citihub Site Survey</title>
+<title>Citihub Request for Information</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -37,9 +37,9 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" id="home" href="/home"><img
+			<a class="navbar-brand" id="home" href="www.citihub.com"><img
 				src="./resources/images/logo.png"></a> <a class="navbar-brand"
-				href="/home">Citihub Site Survey</a>
+				href="www.citihub.com">Citihub Request for Information</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navbarCollapse">
@@ -57,427 +57,126 @@
 	<br>
 	<br>
 	<div class="container">
-		<form:form modelAttribute="assessment" id="myForm" action="form">
-			<table class="table table-condensed">
-				<thead>
-					<th>Site Name</th>
-					<th>Survey Date</th>
-					<th>&nbsp;</th>
-				<tbody>
-					<tr class="active">
-						<td><form:input path="name" id="name" placeholder="sitename"
-								size="50" maxlength="50" /></td>
-						<td>
-							<div class="input-append date" data-date="24-05-2012"
-								data-date-format="dd-mm-yyyy">
-								<form:input path="date" type="date" id="date" size="16" />
-								<span class="add-on"><i class="icon-calendar"></i></span>
-							</div>
-						</td>
-						<td>
-							<button type="button" id="loading-example-btn"
-								class="btn btn-primary">Submit</button>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<ul class="nav nav-tabs">
-<!--  				<li class="active"><a href="#electrical" data-toggle="tab">Questions</a></li>-->
-<!--  			<li><a href="#mechanical" data-toggle="tab">Mechanical</a></li>
-				<li><a href="#telecoms" data-toggle="tab">Telecoms</a></li>
-				<li><a href="#sitestructure" data-toggle="tab">Site Structure</a></li>
-				<li><a href="#operations" data-toggle="tab">Operations</a></li>
-				<li><a href="#process" data-toggle="tab">Process</a></li>-->
-			</ul>
-			
-			<div class="tab-content">
-				<div class="tab-pane  active" id="electrical">
-					<div class="panel panel-primary">
-						<div class="panel-heading" id="electricalStatusLabel">Power Demand total (Kw) @ Average 5Kw/cabinet</div>
-						<form:input path="electricalStatus" id="electricalStatus"
-							placeholder="electrical status" size="50" maxlength="50"
-							readonly="" type="hidden"></form:input>
-						<div class="panel-body">
-							<table class="table  table-striped">
-								<thead>
-									<tr>
-										<th width="20%">Category</th>
-										<th width="30%">Question</th>
-										<th width="25%">Answer</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
-									</tr>
-								</thead>
-								<c:if test="${not empty questionList}">
-									<div>
-										<tbody>
-											<c:forEach var="question" items="${questionList}">
-												<c:if test="${question.category=='Electrical'}">
-													<tr>
-														<td><c:out value="${question.subcategory}" /></td>
-														<td><c:out value="${question.question}" /></td>
-
-														<td>
-															<textarea class="form-control" rows="3"></textarea>
-	<!--  														<form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select>-->
-															
-														</td>
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-								</c:if>
-							</table>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="tab-pane" id="mechanical">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Mechanical</div>
-						<div class="panel-body">
-							<table class="table  table-striped">
-								<thead>
-									<tr>
-										<th width="20%">Category</th>
-										<th width="30%">Question</th>
-										<th width="25%">Findings</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
-									</tr>
-								</thead>
-
-								<c:if test="${not empty questionList}">
-									<div>
-										<tbody>
-											<c:forEach var="question" items="${questionList}">
-												<c:if test="${question.category=='Mechanical'}">
-													<tr>
-														<td><c:out value="${question.subcategory}" /></td>
-														<td><c:out value="${question.question}" /></td>
-														<td><form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select></td>
-
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-								</c:if>
-							</table>
-
-						</div>
-
-					</div>
-
-				</div>
-
-				<div class="tab-pane" id="telecoms">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Telecoms</div>
-						<div class="panel-body">
-							<table class="table  table-striped">
-								<thead>
-									<tr>
-										<th width="20%">Category</th>
-										<th width="30%">Question</th>
-										<th width="25%">Findings</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
-									</tr>
-								</thead>
-								<c:if test="${not empty questionList}">
-									<div>
-										<tbody>
-											<c:forEach var="question" items="${questionList}">
-												<c:if test="${question.category=='Telecoms'}">
-													<tr>
-														<td><c:out value="${question.subcategory}" /></td>
-														<td><c:out value="${question.question}" /></td>
-														<td><form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select></td>
-
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-								</c:if>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane" id="sitestructure">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Site & Structure</div>
-						<div class="panel-body">
-							<table class="table  table-striped">
-								<thead>
-									<tr>
-										<th width="20%">Category</th>
-										<th width="30%">Question</th>
-										<th width="25%">Findings</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
-									</tr>
-								</thead>
-								<c:if test="${not empty questionList}">
-									<div>
-										<tbody>
-											<c:forEach var="question" items="${questionList}">
-												<c:if test="${question.category=='SiteStructure'}">
-													<tr>
-														<td><c:out value="${question.subcategory}" /></td>
-														<td><c:out value="${question.question}" /></td>
-														<td><form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select></td>
-
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-								</c:if>
-							</table>
-
-						</div>
-
-					</div>
-
-				</div>
-				<div class="tab-pane" id="operations">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Operations</div>
-						<div class="panel-body">
-							<table class="table  table-striped">
-								<thead>
-									<tr>
-										<th width="20%">Category</th>
-										<th width="30%">Question</th>
-										<th width="25%">Findings</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
-									</tr>
-								</thead>
-								<c:if test="${not empty questionList}">
-									<div>
-										<tbody>
-											<c:forEach var="question" items="${questionList}">
-												<c:if test="${question.category=='Operations'}">
-													<tr>
-														<td><c:out value="${question.subcategory}" /></td>
-														<td><c:out value="${question.question}" /></td>
-														<td><form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select></td>
-
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-								</c:if>
-							</table>
-
-						</div>
-
-					</div>
-
-				</div>
-				<div class="tab-pane" id="process">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Process & Procedures</div>
-						<div class="panel-body">
-							<table class="table  table-striped">
-								<thead>
-									<tr>
-										<th width="20%">Category</th>
-										<th width="30%">Question</th>
-										<th width="25%">Findings</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
-									</tr>
-								</thead>
-								<c:if test="${not empty questionList}">
-									<div>
-										<tbody>
-											<c:forEach var="question" items="${questionList}">
-												<c:if test="${question.category=='Process'}">
-													<tr>
-														<td><c:out value="${question.subcategory}" /></td>
-														<td><c:out value="${question.question}" /></td>
-														<td><form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select></td>
-
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-								</c:if>
-							</table>
-
-						</div>
-
-					</div>
-
-				</div>
-
-			</div>
-		</form:form>
-		<div class="row">
-			<div class="col-xs-12">
-				<footer>
-				<p>&copy; Copyright 2014 Citihub Consulting</p>
-				</footer>
-			</div>
+		<div class="well">
+<p><u><b>Background:</b></u>
+<br>
+<br> 
+Citihub has been engaged to deliver a Data Centre strategy for the Asia Pacific region, the strategy will look at multiple metropolitan locations within 12 countries. 
+<br><br> 
+The client is a long-established global financial institution with operations in over 50 countries and tens of thousands of employees.  The client has four main objectives:<br><br>
+<ul>
+<li>Consolidate footprint where possible</li>
+<li>Reduce the operating expenditure and minimise any capital expenditure</li>
+<li>Separate people and technology where practical</li>
+<li>Improve flexibility</li>
+</ul>
+<br>
+The engagement is currently at the information gathering stage, the client would like to understand:<br><br>
+<ul>
+<li>Which providers cover the client's footprint</li>
+<li>What the specifications of the providers facilities are</li>
+<li>Indicative costs for each location based upon the demand projected by the client</li>
+<li>How the provider pricing model works</li>
+</ul><br>
+Please note this is not a request for a formal proposal, therefore the data requested has been kept at a reasonably high level.  At a later date the client or Citihub may approach some providers for formal quotations depending on the outcome of the strategy and direction from the client team.
+<br><br>
+Whilst we are in the early stages of developing the strategy, the ball park costs provided will be used to compare the existing costs vs. moving to another location/provider, therefore we recommend you provide pricing that makes the decision to relocate compelling for the client.
+<br><br> 
+ 
+ 
+<b><u>Instructions for using the Citihub data gathering tool:</u></b><br><br>
+ 
+This tool has been designed to speed up the data gathering process for Data Centre engagements. Each provider shall login securely and any information provided will not be visible to anybody outside of Citihub and the client teams.<br><br> 
+ 
+The tool is intended to make life easier for the providers, rather than submitting information that is not required it specifies exactly what data is required. <br><br>
+ 
+As mentioned above the strategy covers 12 countries and multiple metropolitan locations, however we recognise that providers may not have a presence in all of them, therefore the radio buttons below allow the providers to select the locations that they wish to submit a response for. Once the provider selects the locations they will only see forms relating to those places, thus speeding up the process.<br><br> 
+ 
+Each location has a single form to be completed, there is a standard set of questions on each form and as well as a place to provide a response there is a space provided for additional commentary. The provider can also attach supplementary information for each location as desired.<br><br>
+ 
+The tool allows providers to save progress and revisit the site at a later time to complete the submission. <br><br>
+ 
+Once the provider is happy the information provided is complete and accurate they can press 'next location' and proceed to a new form.<br><br>
+ 
+The deadline for submissions is 5:00 pm (Singapore Time) 17th October 2014<br><br>
+ 
+For any queries or support relating to the engagement or the Citihub tool please contact trevor.hawkes@citihub.com
+</p>		
 		</div>
-	</div>
-
-	<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Saved Assessment</h4>
-				</div>
-				<div class="modal-body">The assessment has been saved</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading" id="electricalStatusLabel">Select
+				sites for RFI:</div>
+			<div class="panel-body">
+				<form:form modelAttribute="sitesselected" id="myForm"
+					action="landing">
+					<table class="table table-striped">
+						<tbody>
+							<tr class="active">
+								<td>Your organisation name:</td>
+								<td><form:input path="submitter" id="submitter"
+										placeholder="submitter" size="50" maxlength="50" /></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="table  table-striped">
+						<thead>
+							<tr>
+								<th width="30%">Site</th>
+								<th width="30%">Demand</th>
+								<th width="5%">Completion?</th>
+								<th width="35%"></th>
+							</tr>
+						</thead>
+						<c:if test="${not empty siteList}">
+							<div>
+								<tbody>
+									<c:forEach var="site" items="${siteList}">
+										<tr>
+											<td><c:out value="${site.name}" /></td>
+											<td><c:out value="${site.demand}" /></td>
+											<td><label class="checkbox"> <form:checkbox
+														path="siteStatus" id="${site.id}" value="${site.id}" /></label></td>
+											<td>&nbsp;</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+						</c:if>
+					</table>
+				</form:form>
 			</div>
-		</div>
-	</div>
 
-
-	<!-- Modal -->
-	<div class="modal fade" id="myHelp" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">Help</h4>
-				</div>
-				<div class="modal-body">To be completed</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				</div>
-			</div>
 		</div>
+		<div>
+			<button type="button" id="submit-btn" class="btn btn-primary">Start
+				RFI</button>
+		</div>
+<br><br>
+
 	</div>
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="myModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      Submitter is a required field
+    </div>
+  </div>
+</div>
 	<script>
-		$(function() {
-			$("[rel=popover]").popover({
-				html : true
-			});
-		});
-	</script>
-	<script>
-		$('#loading-example-btn').click(function() {
+		$('#submit-btn').click(function() {
 
-			$('#myForm').submit();
+			if ($("#submitter").val().length < 1)
+			{
+				alert("Organisation is required field");
+			} else {
+				$('#myForm').submit();
+			}
 		});
-
-		function changeFunc() {
-			//alert("hi");
-		}
+		$('#myForm').submit(function(){
+		    if(!$('#myForm input[type="checkbox"]').is(':checked')){
+		      alert("Please check at least one.");
+		      return false;
+		    }
+		});
 	</script>
 </body>
 </html>

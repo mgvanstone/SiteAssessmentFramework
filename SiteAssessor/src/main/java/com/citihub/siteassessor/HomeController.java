@@ -2,10 +2,12 @@ package com.citihub.siteassessor;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +29,23 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "form", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	@RequestMapping(value = "home", method = RequestMethod.GET)
+	public String home(Locale locale, Model model, HttpServletRequest request, HttpSession session) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
+//		Map<String, Object> map = model.asMap();
+//		logger.info(model.toString());
+//
+//		  System.out.println("*** Session data ***");
+//		  Enumeration<String> e = session.getAttributeNames();
+//		  while (e.hasMoreElements()){
+//		    String s = e.nextElement();
+//		    System.out.println(s);
+//		    System.out.println("**" + session.getAttribute(s));
+//		    //System.out.println(""+(SitesSelected)session.getAttribute(s));
+//		  }
+		
+		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
 				DateFormat.LONG, locale);
@@ -39,6 +54,29 @@ public class HomeController {
 
 		model.addAttribute("assessment", new Assessment());
 		model.addAttribute("serverTime", formattedDate);
+		
+		int sitespos = ((Integer)session.getAttribute("sitespos")).intValue();
+		int sitescount = ((Integer)session.getAttribute("sitescount")).intValue();		
+		SitesSelected sitesSelected = (SitesSelected)session.getAttribute("sitesselected");
+		List<Site> siteList = (List<Site>)session.getAttribute("siteList");
+		
+		logger.info("countpos = " + sitespos + " sitescount = " + sitescount + " site " + sitesSelected.siteStatus[sitespos]);
+		int x = Integer.parseInt(sitesSelected.siteStatus[sitespos]);
+		Site site = (Site)siteList.get(x-1);
+		logger.info("site: " + site);
+		
+		model.addAttribute("site", site);
+		session.setAttribute("site", site);
+		site.setStatus("Completed");
+		siteList.set(x-1, site);
+		if (sitespos == sitescount - 1) {
+			model.addAttribute("action", "Submit");
+			session.setAttribute("action", "Submit");
+		} else {
+			model.addAttribute("action", "Next Facility");			
+			session.setAttribute("action", "Next Facility");
+		}
+		
 
 		QuestionDAO dao = new QuestionDAO();
 		try {
@@ -52,7 +90,7 @@ public class HomeController {
 					logger.info(""+it.next());
 				}
 			}
-		} catch (Exception e) {
+		} catch (Exception e1) {
 			System.out.println("Exception list");
 		}
 		
@@ -60,29 +98,99 @@ public class HomeController {
 		return "home";
 	}
 
-	@RequestMapping(value = "form", method = RequestMethod.POST)
-	public String submitForm(@ModelAttribute Assessment assessment, Model m) {
+	@RequestMapping(value = "home", method = RequestMethod.POST)
+	public String submitForm(@ModelAttribute Assessment assessment, Model m, HttpServletRequest request, HttpSession session) {
 		List<Question> questionList = null;
 		AnswerDAO dao = new AnswerDAO();
 		QuestionDAO questionDAO = new QuestionDAO();
 
-		/**	try {
+		int sitespos = ((Integer)session.getAttribute("sitespos")).intValue();
+	
+			
+		
+		Site site = (Site)session.getAttribute("site");
+		SitesSelected sitesselected = (SitesSelected)session.getAttribute("sitesselected");
+		
+		AnswerDAO assDAO = new AnswerDAO();
+		Assessment ass = new Assessment();
+		ass.setName(site.getName());
+		ass.setSubmitter(sitesselected.getSubmitter());
+		try {
+			assDAO.saveResults(ass);
+		} catch (Exception e) {
+			logger.error(e.toString());
+		}
+		
+		try {
 			questionList = questionDAO.readQuestions();
 		} catch (Exception e) {
 			logger.error(e.toString());
 		}
 
 		Iterator<Question> it = questionList.iterator();
-		HashMap<String, Question> questionMap = new HashMap<String, Question>();
+		int i = 0;
+		
 		while (it.hasNext()) {
-			Question question = (it.next());
-			questionMap.put(question.getId(), question);
+			Question q = it.next();
+			if (q.getSubcategory().equals("Commericals")) {
+				logger.info("Found " + i);
+				break;
+			}
+			i++;			
 		}
 
-		List<String> answerQuestionIdList = assessment.getQuestionid();
-		List<String> answerIdList = assessment.getAnswer();
+		logger.info("Answer list");
+		Iterator<String> it2 = assessment.getAnswer().iterator();
+		int i2 = 0;
+		
+		while (it2.hasNext()) {
+			String q = it2.next();
+			logger.info("Answer " + q);
+			i2++;			
+		}
+		
 
-		Iterator<String> answerQuestionIt = answerQuestionIdList.iterator();
+		
+		
+		
+		//int sitespos = ((Integer)session.getAttribute("sitespos")).intValue();
+		int sitescount = ((Integer)session.getAttribute("sitescount")).intValue();		
+		SitesSelected sitesSelected = (SitesSelected)session.getAttribute("sitesselected");
+		List<Site> siteList = (List<Site>)session.getAttribute("siteList");
+		
+		logger.info("countpos = " + sitespos + " sitescount = " + sitescount + " site " + sitesSelected.siteStatus[sitespos]);
+		int x = Integer.parseInt(sitesSelected.siteStatus[sitespos]);
+		Site site2 = (Site)siteList.get(x-1);
+		logger.info("site: " + site2);
+		
+		//m.addAttribute("site", site);
+		//session.setAttribute("site", site);
+		site.setPricing(assessment.getAnswer().get(i));
+		siteList.set(x-1, site);		
+		
+		sitespos++;
+		session.setAttribute("sitespos", new Integer(sitespos));			
+		
+		String action = (String)session.getAttribute("action");
+		if (!action.equals("Submit")) {
+			logger.info("go home");
+			return "redirect:home";
+		}
+		
+//		
+//		HashMap<String, Question> questionMap = new HashMap<String, Question>();
+//		while (it.hasNext()) {
+//			Question question = (it.next());
+//			questionMap.put(question.getId(), question);
+//		}
+
+//		List<String> answerQuestionIdList = assessment.getQuestionid();
+//		List<String> answerIdList = assessment.getAnswer();
+//
+//		Iterator<String> answerQuestionIt = answerQuestionIdList.iterator();
+		
+		
+		/**
 		int overallTier = 0;
 		int electricalTier = 0;
 		int mechanicalTier = 0;
@@ -167,6 +275,7 @@ public class HomeController {
 		}
 **/
 		//System.out.println(assessment.toString());
-		return "result";
+		logger.info("redirect to result");
+		return "redirect:result";
 	}
 }

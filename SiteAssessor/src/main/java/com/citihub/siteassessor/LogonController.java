@@ -7,6 +7,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -45,15 +48,16 @@ public class LogonController {
 	}
 
 	@RequestMapping(value = "/logon", method = RequestMethod.POST)
-	public String submitForm(@ModelAttribute Logon logon, Model m) {
+	public String submitForm(@ModelAttribute Logon logon, Model m, HttpServletRequest request, HttpSession session) {
 
 		logger.info("Submitted logon username=" + logon.getUsername() + " password " + logon.getPassword());
 		
 		if (!logon.getUsername().equals("citihub") || !logon.getPassword().equals("password")) {
 			return "logon";
 		}
-		
+				
 		m.addAttribute("assessment", new Assessment());
+		
 		QuestionDAO dao = new QuestionDAO();
 		try {
 			List<Question> questionList = dao.readQuestions();
@@ -63,6 +67,6 @@ public class LogonController {
 			System.out.println("Exception list");
 		}		
 		
-		return "redirect:form";
+		return "redirect:landing";
 	}
 }

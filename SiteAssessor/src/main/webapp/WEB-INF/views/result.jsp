@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Citihub Site Survey</title>
+<title>Citihub Request for Information</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -37,9 +37,9 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" id="result" href="/home"><img
+			<a class="navbar-brand" id="result" href="www.citihub.com"><img
 				src="./resources/images/logo.png"></a> <a class="navbar-brand"
-				href="/home">Citihub Site Survey</a>
+				href="www.citihub.com">Citihub Request for Information</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navbarCollapse">
@@ -57,95 +57,55 @@
 	<br>
 	<br>
 	<div class="container">
-		<div class="well">Thank you. The survey has been submitted.</div>
+		<div class="well">Thank you <b>${sitesselected.submitter}</b>. The survey has been submitted.</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading" id="electricalStatusLabel">Sites
+				submitted:</div>
+			<div class="panel-body">
+				<table class="table  table-striped">
+					<thead>
+						<tr>
+							<th width="20%">Site</th>
+							<th width="20%">Demand</th>							
+							<th width="20%">Status</th>
+							<th width="40%">Commericals</th>							
+						</tr>
+					</thead>
+					<c:if test="${not empty siteList}">
+						<div>
+							<tbody>
+								<c:forEach var="site" items="${siteList}">
+									<tr>
+										<td><c:out value="${site.name}" /></td>
+										<td><c:out value="${site.demand}" /></td>
+										<td><c:out value="${site.status}" /></td>
+										<td><c:out value="${site.pricing}" /></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+					</c:if>
+				</table>
+			</div>
+
+		</div>
 		<div>
 			<form:form class="form-signin" id="myForm">
 				<button type="button" id="new-assessment-btn"
 					class="btn btn-primary">Start New Assessment</button>
 			</form:form>
 		</div>
-	</div>
-	<!-- 	<div class="container">
-		<div class="well">
-			Overall Assessment is
-			<c:out value="${assessment.overallStatus}" />
-		</div>
-		<div class="panel panel-primary">
-			<div class="panel-heading">Summary of Site Assessment Results</div>
-			<div class="panel-body">
-				<table class="table  table-striped">
-					<thead>
-						<tr>
-							<th>Category</th>
-							<th>Tier Rating</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Electrical</td>
-							<td>
-								<div id="electricalstatusbtn" class="bg-primary">
-									<c:out value="${assessment.electricalStatus}" />
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>Mechanical</td>
-							<td>
-								<div id="mechanicalstatusbtn" class="bg-primary">
-									<c:out value="${assessment.mechanicalStatus}" />
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>Telecoms</td>
-							<td>
-								<div id="telecomsstatusbtn" class="bg-primary">
-									<c:out value="${assessment.telecomsStatus}" />
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>Site & Structure</td>
-							<td>
-								<div id="sitestructurestatusbtn" class="bg-primary">
-									<c:out value="${assessment.sitestructureStatus}" />
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>Operations</td>
-							<td>
-								<div id="operationsstatusbtn" class="bg-primary">
-									<c:out value="${assessment.operationsStatus}" />
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>Process and Procedures</td>
-							<td>
-								<div id="processstatusbtn" class="bg-primary">Not
-									applicable</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div> -->
 
-	<br>
-	<br>
-	<br>
-	<br>
-<!-- 	<footer>
+		<br> <br> <br> <br>
+		<!-- 	<footer>
 	<p>&copy; Copyright 2014 Citihub Consulting</p>
 	</footer> -->
 	</div>
 	<script>
 		$('#new-assessment-btn').click(function() {
 
-			$(location).attr('href',"/siteassessor/form");
+			$(location).attr('href', "/SiteAssessor/landing");
 		});
+	
 	</script>
 </body>
 </html>

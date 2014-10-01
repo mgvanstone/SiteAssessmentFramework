@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Citihub Site Survey</title>
+<title>Citihub Request for Information</title>
 
 <!-- Bootstrap -->
 <link rel="stylesheet"
@@ -15,6 +15,8 @@
 	href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/datepicker.css" />">
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/citihub.css" />">	
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.1.1.js"></script>
 <script
@@ -37,9 +39,9 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" id="home" href="/home"><img
+			<a class="navbar-brand" id="home" href="http://www.citihub.com"><img
 				src="./resources/images/logo.png"></a> <a class="navbar-brand"
-				href="/home">Citihub Site Survey</a>
+				href="www.citihub.com">Citihub Request for Information</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navbarCollapse">
@@ -57,26 +59,18 @@
 	<br>
 	<br>
 	<div class="container">
-		<form:form modelAttribute="assessment" id="myForm" action="form">
+		<form:form modelAttribute="assessment" id="myForm" action="home">
 			<table class="table table-condensed">
 				<thead>
 					<th>Site Name</th>
-					<th>Survey Date</th>
+					<th>&nbsp;</th>
 					<th>&nbsp;</th>
 				<tbody>
 					<tr class="active">
-						<td><form:input path="name" id="name" placeholder="sitename"
-								size="50" maxlength="50" /></td>
+						<td>${site.name}&nbsp;:&nbsp;${site.demand}</td>
+						<td>&nbsp;</td>
 						<td>
-							<div class="input-append date" data-date="24-05-2012"
-								data-date-format="dd-mm-yyyy">
-								<form:input path="date" type="date" id="date" size="16" />
-								<span class="add-on"><i class="icon-calendar"></i></span>
-							</div>
-						</td>
-						<td>
-							<button type="button" id="loading-example-btn"
-								class="btn btn-primary">Generate Summary</button>
+
 						</td>
 					</tr>
 				</tbody>
@@ -93,7 +87,7 @@
 			<div class="tab-content">
 				<div class="tab-pane  active" id="electrical">
 					<div class="panel panel-primary">
-						<div class="panel-heading" id="electricalStatusLabel">Power Demand total (Kw) @ Average 5Kw/cabinet</div>
+						<div class="panel-heading" id="electricalStatusLabel">Questions regarding ${site.name} facility:</div>
 						<form:input path="electricalStatus" id="electricalStatus"
 							placeholder="electrical status" size="50" maxlength="50"
 							readonly="" type="hidden"></form:input>
@@ -118,20 +112,26 @@
 														<td><c:out value="${question.question}" /></td>
 
 														<td>
-															<textarea class="form-control" rows="3"></textarea>
-	<!--  														<form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select>-->
-															
+															<form:input path="questionid"
+																value="${question.id}" readonly="" type="hidden" />
+															<c:choose>
+																<c:when test="${empty question.referenceList}">
+																	<form:textarea path="answer" class="form-control" rows="3"/>
+																</c:when>
+															<c:otherwise>
+			  													<form:select
+																	class="form-control" path="answer">
+																	<option value="NOANS" label="No Answer"
+																		class="form-control" path="answer" selected="selected" />
+																	<c:forEach var="refList" varStatus="i"
+																		items="${question.referenceList}">
+																		<option value="<c:out value="${i.index}"/>">
+																			<c:out value="${refList.requirement}" />
+																		</option>
+																	</c:forEach>
+																</form:select>
+																</c:otherwise>
+															</c:choose>
 														</td>
 														<td><span class="glyphicon glyphicon-info-sign"
 															rel="popover" data-trigger="hover" data-container="body"
@@ -408,14 +408,18 @@
 										</tbody>
 								</c:if>
 							</table>
-
 						</div>
-
 					</div>
 
-				</div>
 
+				</div>
 			</div>
+			<span class="btn btn-primary btn-file">
+		  			Upload supplementary documentation <input type="file">
+			</span>			
+			<button type="button" id="loading-example-btn"
+				class="btn btn-primary">${action}</button>
+			<br><br>
 		</form:form>
 		<div class="row">
 			<div class="col-xs-12">
