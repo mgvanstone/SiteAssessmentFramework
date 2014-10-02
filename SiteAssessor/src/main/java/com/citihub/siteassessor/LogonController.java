@@ -46,13 +46,46 @@ public class LogonController {
 		
 		return "logon";
 	}
+	
+	/**
+	 * Check user and password
+	 * @param user
+	 * @param password
+	 * @return
+	 */
+	private boolean checkUser(String user, String password) {
+		boolean result = false;
+		
+		UsersDAO userDAO = new UsersDAO();
+		try {
+			List<User> users = userDAO.readUser();
+			Iterator<User> it = users.iterator();
+			
+			while (it.hasNext()) {
+				User user2 = it.next();
+				if (user2.getUser().equals(user)) {
+					logger.debug("User match");
+					if (user2.getPassword().equals(password)) {
+						logger.debug("Password match");
+						result = true;
+					}
+					break;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 
 	@RequestMapping(value = "/logon", method = RequestMethod.POST)
 	public String submitForm(@ModelAttribute Logon logon, Model m, HttpServletRequest request, HttpSession session) {
 
 		logger.info("Submitted logon username=" + logon.getUsername() + " password " + logon.getPassword());
 		
-		if (!logon.getUsername().equals("citihub") || !logon.getPassword().equals("password")) {
+		if (!checkUser(logon.getUsername(), logon.getPassword())) {
+			
 			return "logon";
 		}
 				

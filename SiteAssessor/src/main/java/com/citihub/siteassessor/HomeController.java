@@ -105,7 +105,7 @@ public class HomeController {
 	@RequestMapping(value = "home", method = RequestMethod.POST)
 	public String submitForm(@ModelAttribute Assessment assessment, Model m, HttpServletRequest request, HttpSession session) {
 		List<Question> questionList = null;
-		AnswerDAO dao = new AnswerDAO();
+		AssessmentDAO dao = new AssessmentDAO();
 		QuestionDAO questionDAO = new QuestionDAO();
 
 		int sitespos = ((Integer)session.getAttribute("sitespos")).intValue();
@@ -115,7 +115,7 @@ public class HomeController {
 		Site site = (Site)session.getAttribute("site");
 		SitesSelected sitesselected = (SitesSelected)session.getAttribute("sitesselected");
 		
-		AnswerDAO assDAO = new AnswerDAO();
+		AssessmentDAO assDAO = new AssessmentDAO();
 		Assessment ass = new Assessment();
 		ass.setName(site.getName());
 		ass.setSubmitter(sitesselected.getSubmitter());
