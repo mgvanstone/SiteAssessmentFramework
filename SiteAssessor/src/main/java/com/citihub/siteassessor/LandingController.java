@@ -36,7 +36,7 @@ public class LandingController {
     public List<Site> addSiteListToRequestScope() {
     	SitesDAO dao = new SitesDAO();
     	List<Site> bean = null;
-        System.out.println("Inside of addStuffToRequestScope");
+        logger.info("Inside of addStuffToRequestScope");
         try {
         	bean = dao.readSites();
         } catch (Exception e) {
@@ -54,6 +54,13 @@ public class LandingController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		model.addAttribute("sitesselected", new SitesSelected());
+		
+		if (session.getAttribute("logonUser") == null) {
+			logger.info("User not logged in");
+			return "redirect:logon";
+		}
+		
+		logger.info("logon user: " + (String)session.getAttribute("logonUser"));		
 			
 		return "landing";
 	}
@@ -65,7 +72,8 @@ public class LandingController {
 		session.setAttribute("sitescount",new Integer(sitecount));
 		logger.info("sitecount = " + sitecount);
 		session.setAttribute("sitespos",new Integer(0));		
-		session.setAttribute("sitesselected",selected);
+		session.setAttribute("sitesselected",selected);		
+		
 		return "redirect:home";
 	}
 }

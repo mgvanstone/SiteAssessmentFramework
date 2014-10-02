@@ -46,8 +46,7 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="nav navbar-nav">
-				<li><a href="#" target="_blank">Home</a></li>
-				<li><a href="#" target="_blank">About</a></li>
+				<li><a href="logout">Logout</a></li>						
 			</ul>
 		</div>
 	</div>

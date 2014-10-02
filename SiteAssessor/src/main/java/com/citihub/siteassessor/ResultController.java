@@ -32,6 +32,11 @@ public class ResultController {
 	public String result(Locale locale, Model model, HttpServletRequest request, HttpSession session) {
 		logger.info("Welcome results! The client locale is {}.", locale);
 		
+		if (session.getAttribute("logonUser") == null) {
+			logger.info("User not logged in");
+			return "redirect:logon";
+		}
+		
 		List<Site> siteList = (List<Site>)session.getAttribute("siteList");
 		model.addAttribute("siteList", siteList);
 		

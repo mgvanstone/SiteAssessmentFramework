@@ -45,6 +45,10 @@ public class HomeController {
 //		    //System.out.println(""+(SitesSelected)session.getAttribute(s));
 //		  }
 		
+		if (session.getAttribute("logonUser") == null) {
+			logger.info("User not logged in");
+			return "redirect:logon";
+		}
 		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,

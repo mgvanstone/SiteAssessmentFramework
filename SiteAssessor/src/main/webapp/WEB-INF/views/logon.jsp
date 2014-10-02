@@ -49,29 +49,29 @@
 	<div class="container">
 		<br> <br> <br> <br> <br> <br> <br>
 		<br>
+
 		<form:form class="form-signin" modelAttribute="logon" id="myForm">
 			<h2 class="form-signin-heading">Please sign in</h2>
 			<form:input path="username" placeholder="username"
 				class="form-control" id="username"></form:input>
 			<form:input path="password" type="password" class="form-control"
 				placeholder="Password" id="password"></form:input>
-			<div class="alert" id="error">  
-			  <a class="close" data-dismiss="alert">×</a>  
-  			  <strong>Invalid Logon!</strong> Username or password invalid.  
-			</div> 
+			<div class="alert" id="error">
+				<a class="close" data-dismiss="alert">×</a> <strong>Invalid
+					Logon!</strong> Username or password invalid.
+			</div>
 			<button id="logon-btn" class="btn btn-lg btn-primary btn-block"
 				type="submit">Sign in</button>
 		</form:form>
 	</div>
 
 	<script>
-	
-	    if ($("#username").val() == '') {
-	    	$( "#error" ).hide();
+		if ($("#username").val() == '') {
+			$("#error").hide();
 		} else {
-			$( "#error" ).show();
+			$("#error").show();
 		}
-		    
+
 		$('#logon-btn').click(function() {
 
 			$('#myForm').submit();

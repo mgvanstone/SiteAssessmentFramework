@@ -44,8 +44,7 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="nav navbar-nav">
-				<li><a href="#" target="_blank">Home</a></li>
-				<li><a href="#" target="_blank">About</a></li>
+				<li><a href="logout">Logout</a></li>	
 			</ul>
 		</div>
 	</div>
@@ -58,50 +57,73 @@
 	<br>
 	<div class="container">
 		<div class="well">
-<p><u><b>Background:</b></u>
-<br>
-<br> 
-Citihub has been engaged to deliver a Data Centre strategy for the Asia Pacific region, the strategy will look at multiple metropolitan locations within 12 countries. 
-<br><br> 
-The client is a long-established global financial institution with operations in over 50 countries and tens of thousands of employees.  The client has four main objectives:<br><br>
-<ul>
-<li>Consolidate footprint where possible</li>
-<li>Reduce the operating expenditure and minimise any capital expenditure</li>
-<li>Separate people and technology where practical</li>
-<li>Improve flexibility</li>
-</ul>
-<br>
-The engagement is currently at the information gathering stage, the client would like to understand:<br><br>
-<ul>
-<li>Which providers cover the client's footprint</li>
-<li>What the specifications of the providers facilities are</li>
-<li>Indicative costs for each location based upon the demand projected by the client</li>
-<li>How the provider pricing model works</li>
-</ul><br>
-Please note this is not a request for a formal proposal, therefore the data requested has been kept at a reasonably high level.  At a later date the client or Citihub may approach some providers for formal quotations depending on the outcome of the strategy and direction from the client team.
-<br><br>
-Whilst we are in the early stages of developing the strategy, the ball park costs provided will be used to compare the existing costs vs. moving to another location/provider, therefore we recommend you provide pricing that makes the decision to relocate compelling for the client.
-<br><br> 
- 
- 
-<b><u>Instructions for using the Citihub data gathering tool:</u></b><br><br>
- 
-This tool has been designed to speed up the data gathering process for Data Centre engagements. Each provider shall login securely and any information provided will not be visible to anybody outside of Citihub and the client teams.<br><br> 
- 
-The tool is intended to make life easier for the providers, rather than submitting information that is not required it specifies exactly what data is required. <br><br>
- 
-As mentioned above the strategy covers 12 countries and multiple metropolitan locations, however we recognise that providers may not have a presence in all of them, therefore the radio buttons below allow the providers to select the locations that they wish to submit a response for. Once the provider selects the locations they will only see forms relating to those places, thus speeding up the process.<br><br> 
- 
-Each location has a single form to be completed, there is a standard set of questions on each form and as well as a place to provide a response there is a space provided for additional commentary. The provider can also attach supplementary information for each location as desired.<br><br>
- 
-The tool allows providers to save progress and revisit the site at a later time to complete the submission. <br><br>
- 
-Once the provider is happy the information provided is complete and accurate they can press 'next location' and proceed to a new form.<br><br>
- 
-The deadline for submissions is 5:00 pm (Singapore Time) 17th October 2014<br><br>
- 
-For any queries or support relating to the engagement or the Citihub tool please contact trevor.hawkes@citihub.com
-</p>		
+			<p>
+				<u><b>Background:</b></u> <br> <br> Citihub has been
+				engaged to deliver a Data Centre strategy for the Asia Pacific
+				region, the strategy will look at multiple metropolitan locations
+				within 12 countries. <br>
+				<br> The client is a long-established global financial
+				institution with operations in over 50 countries and tens of
+				thousands of employees. The client has four main objectives:<br>
+				<br>
+			<ul>
+				<li>Consolidate footprint where possible</li>
+				<li>Reduce the operating expenditure and minimise any capital
+					expenditure</li>
+				<li>Separate people and technology where practical</li>
+				<li>Improve flexibility</li>
+			</ul>
+			<br> The engagement is currently at the information gathering
+			stage, the client would like to understand:<br>
+			<br>
+			<ul>
+				<li>Which providers cover the client's footprint</li>
+				<li>What the specifications of the providers facilities are</li>
+				<li>Indicative costs for each location based upon the demand
+					projected by the client</li>
+				<li>How the provider pricing model works</li>
+			</ul>
+			<br> Please note this is not a request for a formal proposal,
+			therefore the data requested has been kept at a reasonably high
+			level. At a later date the client or Citihub may approach some
+			providers for formal quotations depending on the outcome of the
+			strategy and direction from the client team. <br>
+			<br> Whilst we are in the early stages of developing the
+			strategy, the ball park costs provided will be used to compare the
+			existing costs vs. moving to another location/provider, therefore we
+			recommend you provide pricing that makes the decision to relocate
+			compelling for the client. <br>
+			<br> <b><u>Instructions for using the Citihub data
+					gathering tool:</u></b><br>
+			<br> This tool has been designed to speed up the data gathering
+			process for Data Centre engagements. Each provider shall login
+			securely and any information provided will not be visible to anybody
+			outside of Citihub and the client teams.<br>
+			<br> The tool is intended to make life easier for the providers,
+			rather than submitting information that is not required it specifies
+			exactly what data is required. <br>
+			<br> As mentioned above the strategy covers 12 countries and
+			multiple metropolitan locations, however we recognise that providers
+			may not have a presence in all of them, therefore the radio buttons
+			below allow the providers to select the locations that they wish to
+			submit a response for. Once the provider selects the locations they
+			will only see forms relating to those places, thus speeding up the
+			process.<br>
+			<br> Each location has a single form to be completed, there is a
+			standard set of questions on each form and as well as a place to
+			provide a response there is a space provided for additional
+			commentary. The provider can also attach supplementary information
+			for each location as desired.<br>
+			<br> The tool allows providers to save progress and revisit the
+			site at a later time to complete the submission. <br>
+			<br> Once the provider is happy the information provided is
+			complete and accurate they can press 'next location' and proceed to a
+			new form.<br>
+			<br> The deadline for submissions is 5:00 pm (Singapore Time)
+			17th October 2014<br>
+			<br> For any queries or support relating to the engagement or
+			the Citihub tool please contact trevor.hawkes@citihub.com
+			</p>
 		</div>
 		<div class="panel panel-primary">
 			<div class="panel-heading" id="electricalStatusLabel">Select
@@ -151,31 +173,30 @@ For any queries or support relating to the engagement or the Citihub tool please
 			<button type="button" id="submit-btn" class="btn btn-primary">Start
 				RFI</button>
 		</div>
-<br><br>
+		<br>
+		<br>
 
 	</div>
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" id="myModal">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      Submitter is a required field
-    </div>
-  </div>
-</div>
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+		id="myModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">Submitter is a required field</div>
+		</div>
+	</div>
 	<script>
 		$('#submit-btn').click(function() {
 
-			if ($("#submitter").val().length < 1)
-			{
+			if ($("#submitter").val().length < 1) {
 				alert("Organisation is required field");
 			} else {
 				$('#myForm').submit();
 			}
 		});
-		$('#myForm').submit(function(){
-		    if(!$('#myForm input[type="checkbox"]').is(':checked')){
-		      alert("Please check at least one.");
-		      return false;
-		    }
+		$('#myForm').submit(function() {
+			if (!$('#myForm input[type="checkbox"]').is(':checked')) {
+				alert("Please check at least one.");
+				return false;
+			}
 		});
 	</script>
 </body>
