@@ -16,7 +16,9 @@ public class Assessment {
 	private String telecomsStatus;
 	private String overallStatus;
 	private List<String> answer;
-	private List<String> questionid;	
+	private List<String> questionid;
+	private List<String> comment;
+	
 	public String getSubmitter() {
 		return submitter;
 	}
@@ -89,10 +91,18 @@ public class Assessment {
 	}
 	public void setQuestionid(List<String> questionid) {
 		this.questionid = questionid;
+	}	
+	public List<String> getComment() {
+		return comment;
 	}
+	public void setComment(List<String> comment) {
+		this.comment = comment;
+	}
+	
 	@Override
 	public String toString() {
 		return "Assessment [submitter=" + submitter + ", name=" + name
-				+ ", date=" + date + "]";
+				+ ", date=" + date + ", answer=" + answer + ", questionid="
+				+ questionid + ", comment=" + comment + "]";
 	}
 }

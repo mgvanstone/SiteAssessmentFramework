@@ -28,7 +28,7 @@ public class QuestionDAO extends DAO {
 			statement = connect.createStatement();
 			// Result set get the result of the SQL query
 			resultSet = statement
-					.executeQuery("select id,question_order,question, reference, category, subcategory from question order by category, question_order");
+					.executeQuery("select id,question_order,question, reference, category, subcategory, helptext from question order by category, question_order");
 
 			return writeResultSet(resultSet);
 		} catch (Exception e) {
@@ -59,7 +59,7 @@ public class QuestionDAO extends DAO {
 			String reference = resultSet.getString("reference");
 			String category = resultSet.getString("category");
 			String subcategory = resultSet.getString("subcategory");
-			StringBuffer helptext = new StringBuffer();
+			String helptext = resultSet.getString("helptext");
 
 			Question dc = new Question();
 			dc.setQuestion(question);
@@ -93,7 +93,7 @@ public class QuestionDAO extends DAO {
 					} else {
 						ref.setRequirement(dd);
 					}
-					helptext.append("Tier " + tier + ": " + val + "<br/>");
+			//		helptext.append("Tier " + tier + ": " + val + "<br/>");
 					refList.add(ref);					
 				}
 				
@@ -103,11 +103,11 @@ public class QuestionDAO extends DAO {
 			dc.setReferenceList(refList);
 			dc.setCategory(category);
 			dc.setSubcategory(subcategory);
-			dc.setHelptext(helptext.toString());
+			dc.setHelptext(helptext);
 			dc.setQuestion_order(question_order);
-			if (DEBUG) {
-				System.out.println(dc);
-			}
+//			if (DEBUG) {
+//				System.out.println(dc);
+//			}
 			list.add(dc);
 		}
 

@@ -75,12 +75,6 @@
 				</tbody>
 			</table>
 			<ul class="nav nav-tabs">
-<!--  				<li class="active"><a href="#electrical" data-toggle="tab">Questions</a></li>-->
-<!--  			<li><a href="#mechanical" data-toggle="tab">Mechanical</a></li>
-				<li><a href="#telecoms" data-toggle="tab">Telecoms</a></li>
-				<li><a href="#sitestructure" data-toggle="tab">Site Structure</a></li>
-				<li><a href="#operations" data-toggle="tab">Operations</a></li>
-				<li><a href="#process" data-toggle="tab">Process</a></li>-->
 			</ul>
 			
 			<div class="tab-content">
@@ -96,9 +90,9 @@
 									<tr>
 										<th width="20%">Category</th>
 										<th width="30%">Question</th>
+										<th width="1%"></th>										
 										<th width="25%">Answer</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
+										<th width="24%">Further Comments</th>
 									</tr>
 								</thead>
 								<c:if test="${not empty questionList}">
@@ -109,7 +103,11 @@
 													<tr>
 														<td><c:out value="${question.subcategory}" /></td>
 														<td><c:out value="${question.question}" /></td>
-
+														<td><span class="glyphicon glyphicon-info-sign"
+															rel="popover" data-trigger="hover" data-container="body"
+															data-placement="auto right"
+															data-content="${question.helptext}"
+															data-original-title="Question Help"></span></td>														
 														<td>
 															<form:input path="questionid"
 																value="${question.id}" readonly="" type="hidden" />
@@ -132,285 +130,17 @@
 																</c:otherwise>
 															</c:choose>
 														</td>
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
+														<td><textarea class="form-control"  path="comment" rows="3"></textarea></td>
 													</tr>
 												</c:if>
 											</c:forEach>
 										</tbody>
+									</div>
 								</c:if>
 							</table>
 
 						</div>
 					</div>
-				</div>
-
-				<div class="tab-pane" id="mechanical">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Mechanical</div>
-						<div class="panel-body">
-							<table class="table  table-striped">
-								<thead>
-									<tr>
-										<th width="20%">Category</th>
-										<th width="30%">Question</th>
-										<th width="25%">Findings</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
-									</tr>
-								</thead>
-
-								<c:if test="${not empty questionList}">
-									<div>
-										<tbody>
-											<c:forEach var="question" items="${questionList}">
-												<c:if test="${question.category=='Mechanical'}">
-													<tr>
-														<td><c:out value="${question.subcategory}" /></td>
-														<td><c:out value="${question.question}" /></td>
-														<td><form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select></td>
-
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-								</c:if>
-							</table>
-
-						</div>
-
-					</div>
-
-				</div>
-
-				<div class="tab-pane" id="telecoms">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Telecoms</div>
-						<div class="panel-body">
-							<table class="table  table-striped">
-								<thead>
-									<tr>
-										<th width="20%">Category</th>
-										<th width="30%">Question</th>
-										<th width="25%">Findings</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
-									</tr>
-								</thead>
-								<c:if test="${not empty questionList}">
-									<div>
-										<tbody>
-											<c:forEach var="question" items="${questionList}">
-												<c:if test="${question.category=='Telecoms'}">
-													<tr>
-														<td><c:out value="${question.subcategory}" /></td>
-														<td><c:out value="${question.question}" /></td>
-														<td><form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select></td>
-
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-								</c:if>
-							</table>
-						</div>
-					</div>
-				</div>
-				<div class="tab-pane" id="sitestructure">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Site & Structure</div>
-						<div class="panel-body">
-							<table class="table  table-striped">
-								<thead>
-									<tr>
-										<th width="20%">Category</th>
-										<th width="30%">Question</th>
-										<th width="25%">Findings</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
-									</tr>
-								</thead>
-								<c:if test="${not empty questionList}">
-									<div>
-										<tbody>
-											<c:forEach var="question" items="${questionList}">
-												<c:if test="${question.category=='SiteStructure'}">
-													<tr>
-														<td><c:out value="${question.subcategory}" /></td>
-														<td><c:out value="${question.question}" /></td>
-														<td><form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select></td>
-
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-								</c:if>
-							</table>
-
-						</div>
-
-					</div>
-
-				</div>
-				<div class="tab-pane" id="operations">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Operations</div>
-						<div class="panel-body">
-							<table class="table  table-striped">
-								<thead>
-									<tr>
-										<th width="20%">Category</th>
-										<th width="30%">Question</th>
-										<th width="25%">Findings</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
-									</tr>
-								</thead>
-								<c:if test="${not empty questionList}">
-									<div>
-										<tbody>
-											<c:forEach var="question" items="${questionList}">
-												<c:if test="${question.category=='Operations'}">
-													<tr>
-														<td><c:out value="${question.subcategory}" /></td>
-														<td><c:out value="${question.question}" /></td>
-														<td><form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select></td>
-
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-								</c:if>
-							</table>
-
-						</div>
-
-					</div>
-
-				</div>
-				<div class="tab-pane" id="process">
-					<div class="panel panel-primary">
-						<div class="panel-heading">Process & Procedures</div>
-						<div class="panel-body">
-							<table class="table  table-striped">
-								<thead>
-									<tr>
-										<th width="20%">Category</th>
-										<th width="30%">Question</th>
-										<th width="25%">Findings</th>
-										<th width="1%"></th>
-										<th width="24%">Comments</th>
-									</tr>
-								</thead>
-								<c:if test="${not empty questionList}">
-									<div>
-										<tbody>
-											<c:forEach var="question" items="${questionList}">
-												<c:if test="${question.category=='Process'}">
-													<tr>
-														<td><c:out value="${question.subcategory}" /></td>
-														<td><c:out value="${question.question}" /></td>
-														<td><form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" /> <form:select
-																class="form-control" path="answer">
-																<option value="NOANS" label="No Answer"
-																	class="form-control" path="answer" selected="selected" />
-																<c:forEach var="refList" varStatus="i"
-																	items="${question.referenceList}">
-																	<option value="<c:out value="${i.index}"/>">
-																		<c:out value="${refList.requirement}" />
-																	</option>
-																</c:forEach>
-															</form:select></td>
-
-														<td><span class="glyphicon glyphicon-info-sign"
-															rel="popover" data-trigger="hover" data-container="body"
-															data-placement="auto right"
-															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>
-														<td><textarea class="form-control" rows="3"></textarea></td>
-													</tr>
-												</c:if>
-											</c:forEach>
-										</tbody>
-								</c:if>
-							</table>
-						</div>
-					</div>
-
-
 				</div>
 			</div>
 			<span class="btn btn-primary btn-file">
