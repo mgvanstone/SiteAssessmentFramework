@@ -1,10 +1,13 @@
-package com.citihub.siteassessor;
+package com.citihub.siteassessor.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import com.citihub.siteassessor.Question;
+import com.citihub.siteassessor.Reference;
 
 
 /**

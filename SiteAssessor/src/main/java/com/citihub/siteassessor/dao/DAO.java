@@ -1,4 +1,4 @@
-package com.citihub.siteassessor;
+package com.citihub.siteassessor.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

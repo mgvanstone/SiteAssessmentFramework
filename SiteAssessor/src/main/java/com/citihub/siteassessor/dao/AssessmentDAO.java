@@ -1,4 +1,4 @@
-package com.citihub.siteassessor;
+package com.citihub.siteassessor.dao;
 
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import com.citihub.siteassessor.Assessment;
 
 /**
  * DAO for the portal exchanage database

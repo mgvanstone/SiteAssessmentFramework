@@ -2,8 +2,6 @@ package com.citihub.siteassessor;
 
 import java.util.List;
 
-//import java.util.List;
-
 public class Assessment {
 	private String submitter;
 	private String name;
@@ -98,11 +96,16 @@ public class Assessment {
 	public void setComment(List<String> comment) {
 		this.comment = comment;
 	}
-	
 	@Override
 	public String toString() {
 		return "Assessment [submitter=" + submitter + ", name=" + name
-				+ ", date=" + date + ", answer=" + answer + ", questionid="
-				+ questionid + ", comment=" + comment + "]";
-	}
+				+ ", date=" + date + ", electricalStatus=" + electricalStatus
+				+ ", mechanicalStatus=" + mechanicalStatus
+				+ ", operationsStatus=" + operationsStatus
+				+ ", sitestructureStatus=" + sitestructureStatus
+				+ ", processStatus=" + processStatus + ", telecomsStatus="
+				+ telecomsStatus + ", overallStatus=" + overallStatus
+				+ ", answer=" + answer + ", questionid=" + questionid
+				+ ", comment=" + comment + "]";
+	}	
 }

@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.citihub.siteassessor.dao.SitesDAO;
+
 /**
  * Handles requests for the application home page.
  */
@@ -53,12 +55,12 @@ public class LandingController {
 	public String home(Locale locale, Model model, HttpServletRequest request, HttpSession session) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
-		model.addAttribute("sitesselected", new SitesSelected());
-		
 		if (session.getAttribute("logonUser") == null) {
 			logger.info("User not logged in");
 			return "redirect:logon";
 		}
+		
+		model.addAttribute("sitesselected", new SitesSelected());	
 		
 		logger.info("logon user: " + (String)session.getAttribute("logonUser"));		
 			
@@ -68,6 +70,11 @@ public class LandingController {
 	@RequestMapping(value = "landing", method = RequestMethod.POST)
 	public String submitForm(@ModelAttribute SitesSelected selected, Model m, HttpServletRequest request, HttpSession session) {
 
+		if (session.getAttribute("logonUser") == null) {
+			logger.info("User not logged in");
+			return "redirect:logon";
+		}
+		
 		int sitecount = selected.siteStatus.length;
 		session.setAttribute("sitescount",new Integer(sitecount));
 		logger.info("sitecount = " + sitecount);
