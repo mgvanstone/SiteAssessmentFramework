@@ -54,9 +54,6 @@
 	<br>
 	<br>
 	<br>
-	<br>
-	<br>
-	<br>
 	<div class="container">
 		<form:form modelAttribute="assessment" id="myForm" action="home">
 			<table class="table table-condensed">
@@ -80,7 +77,7 @@
 			<div class="tab-content">
 				<div class="tab-pane  active" id="electrical">
 					<div class="panel panel-primary">
-						<div class="panel-heading" id="electricalStatusLabel">Questions regarding ${site.name} facility:</div>
+						<div class="panel-heading" id="electricalStatusLabel">Questions regarding <b>${site.name}</b> facility:</div>
 						<form:input path="electricalStatus" id="electricalStatus"
 							placeholder="electrical status" size="50" maxlength="50"
 							readonly="" type="hidden"></form:input>
@@ -107,7 +104,8 @@
 															rel="popover" data-trigger="hover" data-container="body"
 															data-placement="auto right"
 															data-content="${question.helptext}"
-															data-original-title="Question Help"></span></td>														
+															data-original-title="Question Help"></span>
+														</td>														
 														<td>
 															<form:input path="questionid"
 																value="${question.id}" readonly="" type="hidden" />
@@ -119,7 +117,7 @@
 			  													<form:select
 																	class="form-control" path="answer">
 																	<option value="NOANS" label="No Answer"
-																		class="form-control" path="answer" selected="selected" />
+																		class="form-control" path="answer" selected="selected" />																	
 																	<c:forEach var="refList" varStatus="i"
 																		items="${question.referenceList}">
 																		<option value="<c:out value="${i.index}"/>">
@@ -130,7 +128,9 @@
 																</c:otherwise>
 															</c:choose>
 														</td>
-														<td><textarea class="form-control"  path="comment" rows="3"></textarea></td>
+														<td>
+															<form:textarea path="comment" class="form-control" id="comment" rows="3"></form:textarea>
+														</td>
 													</tr>
 												</c:if>
 											</c:forEach>
@@ -138,14 +138,13 @@
 									</div>
 								</c:if>
 							</table>
-
 						</div>
 					</div>
 				</div>
 			</div>
-			<span class="btn btn-primary btn-file">
+	<!-- 		<span class="btn btn-primary btn-file">
 		  			Upload supplementary documentation <input type="file">
-			</span>			
+			</span>-->			
 			<button type="button" id="loading-example-btn"
 				class="btn btn-primary">${action}</button>
 			<br><br>

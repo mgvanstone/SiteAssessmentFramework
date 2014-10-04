@@ -37,7 +37,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" id="home" href="www.citihub.com"><img
+			<a class="navbar-brand" id="home" href="http://www.citihub.com"><img
 				src="./resources/images/logo.png"></a> <a class="navbar-brand"
 				href="www.citihub.com">Citihub Request for Information</a>
 		</div>
@@ -131,22 +131,14 @@
 			<div class="panel-body">
 				<form:form modelAttribute="sitesselected" id="myForm"
 					action="landing">
-					<table class="table table-striped">
-						<tbody>
-							<tr class="active">
-								<td>Your organisation name:</td>
-								<td><form:input path="submitter" id="submitter"
-										placeholder="submitter" size="50" maxlength="50" /></td>
-								<td></td>
-							</tr>
-						</tbody>
-					</table>
+					<form:input path="submitter" id="submitter"
+							value="${logonUser}" size="50" maxlength="50" readonly="" type="hidden" />
 					<table class="table  table-striped">
 						<thead>
 							<tr>
 								<th width="30%">Site</th>
 								<th width="30%">Demand</th>
-								<th width="5%">Completion?</th>
+								<th width="5%">Proposal?</th>
 								<th width="35%"></th>
 							</tr>
 						</thead>
@@ -186,11 +178,11 @@
 	<script>
 		$('#submit-btn').click(function() {
 
-			if ($("#submitter").val().length < 1) {
-				alert("Organisation is required field");
-			} else {
+		//	if ($("#submitter").val().length < 1) {
+	//			alert("Organisation is required field");
+		//	} else {
 				$('#myForm').submit();
-			}
+	//		}
 		});
 		$('#myForm').submit(function() {
 			if (!$('#myForm input[type="checkbox"]').is(':checked')) {

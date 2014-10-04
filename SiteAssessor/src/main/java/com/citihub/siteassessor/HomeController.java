@@ -21,6 +21,7 @@ import com.citihub.siteassessor.dao.AnswerDAO;
 import com.citihub.siteassessor.dao.AssessmentDAO;
 import com.citihub.siteassessor.dao.QuestionDAO;
 
+import com.citihub.siteassessor.Constants;
 /**
  * Handles requests for the application home page.
  */
@@ -70,11 +71,11 @@ public class HomeController {
 		site.setStatus("Completed");
 		siteList.set(x - 1, site);
 		if (sitespos == sitescount - 1) {
-			model.addAttribute("action", "Submit");
-			session.setAttribute("action", "Submit");
+			model.addAttribute(Constants.SESSION_VAR_ACTION, Constants.ACTION_SUBMIT);
+			session.setAttribute(Constants.SESSION_VAR_ACTION, Constants.ACTION_SUBMIT);
 		} else {
-			model.addAttribute("action", "Next Facility");
-			session.setAttribute("action", "Next Facility");
+			model.addAttribute(Constants.SESSION_VAR_ACTION, Constants.ACTION_NEXT);
+			session.setAttribute(Constants.SESSION_VAR_ACTION, Constants.ACTION_NEXT);
 		}
 
 		QuestionDAO dao = new QuestionDAO();
@@ -119,18 +120,14 @@ public class HomeController {
 		assessment.setSubmitter((String) session.getAttribute("logonUser"));
 
 		logger.info(assessment.toString());
-		// try {
-		// assDAO.saveResults(assessment);
-		// } catch (Exception e) {
-		// logger.error(e.toString());
-		// }
-		//
+
 		AnswerDAO ansDAO = new AnswerDAO();
 		try {
 			questionList = questionDAO.readQuestions();
 			ansDAO.saveResults(questionList, assessment);
 		} catch (Exception e) {
 			logger.error(e.toString());
+			return "error";
 		}
 
 		// Find the commericals question
@@ -140,7 +137,7 @@ public class HomeController {
 
 		while (it.hasNext()) {
 			Question q = it.next();
-			if (q.getSubcategory().equals("Commericals")) {
+			if (q.getSubcategory().equals(Constants.COMMERICALS_QUESTION)) {
 				logger.info("Found " + i);
 				found = true;
 				break;
@@ -148,15 +145,15 @@ public class HomeController {
 			i++;
 		}
 
-		// logger.info("Answer list");
-		// Iterator<String> it2 = assessment.getAnswer().iterator();
-		// int i2 = 0;
-		//
-		// while (it2.hasNext()) {
-		// String q = it2.next();
-		// // logger.info("Answer " + q);
-		// i2++;
-		// }
+//		 logger.info("Answer list");
+//		 Iterator<String> it2 = assessment.getAnswer().iterator();
+//		 int i2 = 0;
+//		
+//		 while (it2.hasNext()) {
+//		 String q = it2.next();
+//		 logger.info("Answer " + q);
+//		 i2++;
+//		 }
 
 		// int sitespos =
 		// ((Integer)session.getAttribute("sitespos")).intValue();
@@ -174,18 +171,17 @@ public class HomeController {
 
 		// m.addAttribute("site", site);
 		// session.setAttribute("site", site);
-		if (found) {
-			site.setPricing(assessment.getAnswer().get(i));
+		if (found) {		
+			site.setPricing(assessment.getAnswer().get(i-1));
 			siteList.set(x - 1, site);
 		}
 
 		// move forward to the next facility
 		sitespos++;
 		session.setAttribute("sitespos", new Integer(sitespos));
-
 		
-		String action = (String) session.getAttribute("action");
-		if (!action.equals("Submit")) {
+		String action = (String) session.getAttribute(Constants.SESSION_VAR_ACTION);
+		if (!action.equals(Constants.ACTION_SUBMIT)) {
 			// Go to the next facility
 			logger.info("Submit pressed");
 			return "redirect:home";

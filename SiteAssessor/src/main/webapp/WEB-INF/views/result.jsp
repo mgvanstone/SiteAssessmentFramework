@@ -37,7 +37,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" id="result" href="www.citihub.com"><img
+			<a class="navbar-brand" id="home" href="http://www.citihub.com"><img
 				src="./resources/images/logo.png"></a> <a class="navbar-brand"
 				href="www.citihub.com">Citihub Request for Information</a>
 		</div>
@@ -56,10 +56,10 @@
 	<br>
 	<br>
 	<div class="container">
-		<div class="well">Thank you <b>${sitesselected.submitter}</b>. The survey has been submitted.</div>
+		<div class="well">Thank you. The RFI has been submitted.</div>
 		<div class="panel panel-primary">
-			<div class="panel-heading" id="electricalStatusLabel">Sites
-				submitted:</div>
+			<div class="panel-heading" id="electricalStatusLabel">Summary of RFI responses
+ 				submitted:</div>
 			<div class="panel-body">
 				<table class="table  table-striped">
 					<thead>
@@ -90,7 +90,7 @@
 		<div>
 			<form:form class="form-signin" id="myForm">
 				<button type="button" id="new-assessment-btn"
-					class="btn btn-primary">Start New Assessment</button>
+					class="btn btn-primary">Logout</button>
 			</form:form>
 		</div>
 
@@ -102,7 +102,7 @@
 	<script>
 		$('#new-assessment-btn').click(function() {
 
-			$(location).attr('href', "/SiteAssessor/landing");
+			$(location).attr('href', "/SiteAssessor/logout");
 		});
 	
 	</script>
