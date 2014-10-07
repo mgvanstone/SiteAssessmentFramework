@@ -115,9 +115,7 @@
 																</c:when>
 															<c:otherwise>
 			  													<form:select
-																	class="form-control" path="answer">
-																	<option value="NOANS" label="No Answer"
-																		class="form-control" path="answer" selected="selected" />																	
+																	class="form-control" path="answer" multiple="single">
 																	<c:forEach var="refList" varStatus="i"
 																		items="${question.referenceList}">
 																		<option value="<c:out value="${i.index}"/>">
@@ -146,8 +144,10 @@
 		  			Upload supplementary documentation <input type="file">
 			</span>-->			
 			<button type="button" id="loading-example-btn"
-				class="btn btn-primary">${action}</button>
-			<br><br>
+				class="btn btn-primary">${action}</button>&nbsp;&nbsp;
+			<button type="button" id="save-progress-btn"
+				class="btn btn-primary">Save Progress</button>		
+			<br><br>	
 		</form:form>
 		<div class="row">
 			<div class="col-xs-12">
@@ -210,6 +210,13 @@
 		function changeFunc() {
 			//alert("hi");
 		}
+		
+		$('#save-progress-btn').click(function() {
+
+			$('#myForm').submit();
+		});
+		
+		$('select[name="answer"]').find('option[value="0"]').attr("selected",true);
 	</script>
 </body>
 </html>

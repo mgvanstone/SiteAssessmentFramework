@@ -104,7 +104,7 @@
 			exactly what data is required. <br>
 			<br> As mentioned above the strategy covers 12 countries and
 			multiple metropolitan locations, however we recognise that providers
-			may not have a presence in all of them, therefore the radio buttons
+			may not have a presence in all of them, therefore the check-boxes
 			below allow the providers to select the locations that they wish to
 			submit a response for. Once the provider selects the locations they
 			will only see forms relating to those places, thus speeding up the
