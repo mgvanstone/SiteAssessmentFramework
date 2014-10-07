@@ -39,7 +39,7 @@
 			</button>
 			<a class="navbar-brand" id="home" href="http://www.citihub.com"><img
 				src="./resources/images/logo.png"></a> <a class="navbar-brand"
-				href="www.citihub.com">Citihub Request for Information</a>
+				href="http://www.citihub.com">Citihub Request for Information</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navbarCollapse">
@@ -67,7 +67,7 @@
 							<th width="20%">Site</th>
 							<th width="20%">Demand</th>							
 							<th width="20%">Status</th>
-							<th width="40%">Commericals</th>							
+							<th width="40%">Commercials</th>							
 						</tr>
 					</thead>
 					<c:if test="${not empty siteList}">
@@ -85,7 +85,6 @@
 					</c:if>
 				</table>
 			</div>
-
 		</div>
 		<div>
 			<form:form class="form-signin" id="myForm">
@@ -93,7 +92,6 @@
 					class="btn btn-primary">Logout</button>
 			</form:form>
 		</div>
-
 		<br> <br> <br> <br>
 		<!-- 	<footer>
 	<p>&copy; Copyright 2014 Citihub Consulting</p>
@@ -101,10 +99,8 @@
 	</div>
 	<script>
 		$('#new-assessment-btn').click(function() {
-
 			$(location).attr('href', "/SiteAssessor/logout");
-		});
-	
+		});	
 	</script>
 </body>
 </html>

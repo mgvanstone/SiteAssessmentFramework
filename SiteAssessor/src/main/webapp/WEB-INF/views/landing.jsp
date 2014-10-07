@@ -39,7 +39,7 @@
 			</button>
 			<a class="navbar-brand" id="home" href="http://www.citihub.com"><img
 				src="./resources/images/logo.png"></a> <a class="navbar-brand"
-				href="www.citihub.com">Citihub Request for Information</a>
+				href="http://www.citihub.com">Citihub Request for Information</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navbarCollapse">
@@ -149,12 +149,14 @@
 										<tr>
 											<td><c:out value="${site.name}" /></td>
 											<td><c:out value="${site.demand}" /></td>
-											<td><label class="checkbox"> <form:checkbox
+											<td><form:input path="siteId" value="${site.id}" readonly="" type="hidden" />
+											<label class="checkbox"> <form:checkbox
 														path="siteStatus" id="${site.id}" value="${site.id}" /></label></td>
 											<td>&nbsp;</td>
 										</tr>
 									</c:forEach>
 								</tbody>
+							</div>
 						</c:if>
 					</table>
 				</form:form>

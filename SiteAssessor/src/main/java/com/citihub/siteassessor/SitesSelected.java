@@ -7,7 +7,15 @@ public class SitesSelected {
 
 	private String submitter;
 	boolean isComplete;
+	String[] siteId;
 	
+
+	public String[] getSiteId() {
+		return siteId;
+	}
+	public void setSiteId(String[] siteId) {
+		this.siteId = siteId;
+	}
 	public boolean isComplete() {
 		return isComplete;
 	}
@@ -31,7 +39,8 @@ public class SitesSelected {
 	}
 	@Override
 	public String toString() {
-		return "SitesSelected [submitter=" + submitter + ", isGay=" + isComplete
-				+ ", siteStatus=" + Arrays.toString(siteStatus) + "]";
-	}	
+		return "SitesSelected [submitter=" + submitter + ", isComplete="
+				+ isComplete + ", siteid=" + siteId + ", siteStatus="
+				+ Arrays.toString(siteStatus) + "]";
+	}
 }

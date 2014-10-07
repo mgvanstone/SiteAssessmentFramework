@@ -18,9 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.citihub.siteassessor.dao.AnswerDAO;
-import com.citihub.siteassessor.dao.AssessmentDAO;
 import com.citihub.siteassessor.dao.QuestionDAO;
-
+import com.citihub.siteassessor.dao.SelectedSitesDAO;
 import com.citihub.siteassessor.Constants;
 /**
  * Handles requests for the application home page.
@@ -115,7 +114,7 @@ public class HomeController {
 		SitesSelected sitesselected = (SitesSelected) session
 				.getAttribute("sitesselected");
 
-		AssessmentDAO assDAO = new AssessmentDAO();
+		SelectedSitesDAO assDAO = new SelectedSitesDAO();
 		assessment.setName(site.getName());
 		assessment.setSubmitter((String) session.getAttribute("logonUser"));
 

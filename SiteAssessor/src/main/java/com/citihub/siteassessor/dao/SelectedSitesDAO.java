@@ -16,9 +16,28 @@ import com.citihub.siteassessor.Assessment;
  * @author citihubuser
  * 
  */
-public class AssessmentDAO extends DAO {
+public class SelectedSitesDAO extends DAO {
 
+	public void updateResults(Assessment assessment) throws Exception {
+		try {
+			dbconnect();
 
+			PreparedStatement stmt = connect.prepareStatement("update isselected = ? from assessment where submitter = ? and siteid = ?");			
+
+			stmt.setString(1, "true");			
+			stmt.setString(2, assessment.getSubmitter());
+			stmt.setString(3, assessment.getSiteId());			
+
+			stmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			close();
+		}
+	}
+	
 	/**
 	 * Read the database
 	 * 
@@ -28,10 +47,10 @@ public class AssessmentDAO extends DAO {
 		try {
 			dbconnect();
 
-			PreparedStatement stmt = connect.prepareStatement("INSERT INTO assessment(submitter, site_name, submitdate) VALUES (?,?, ?)");			
+			PreparedStatement stmt = connect.prepareStatement("INSERT INTO assessment(submitter, siteid, submitdate) VALUES (?,?, ?)");			
 					
 			stmt.setString(1, assessment.getSubmitter());
-			stmt.setString(2, assessment.getName());
+			stmt.setString(2, assessment.getSiteId());			
 			stmt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
 
 			stmt.executeUpdate();
@@ -44,7 +63,6 @@ public class AssessmentDAO extends DAO {
 		}
 	}
 	
-
 	// Close the resultSet
 	private void close() {
 		try {
@@ -60,7 +78,7 @@ public class AssessmentDAO extends DAO {
 				connect.close();
 			}
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 

@@ -16,7 +16,15 @@ public class Assessment {
 	private List<String> answer;
 	private List<String> questionid;
 	private List<String> comment;
+	private String siteId;
+	private boolean isSelected;
 	
+	public boolean isSelected() {
+		return isSelected;
+	}
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
+	}
 	public String getSubmitter() {
 		return submitter;
 	}
@@ -96,6 +104,14 @@ public class Assessment {
 	public void setComment(List<String> comment) {
 		this.comment = comment;
 	}
+	
+	
+	public String getSiteId() {
+		return siteId;
+	}
+	public void setSiteId(String siteId) {
+		this.siteId = siteId;
+	}
 	@Override
 	public String toString() {
 		return "Assessment [submitter=" + submitter + ", name=" + name
@@ -106,6 +122,8 @@ public class Assessment {
 				+ ", processStatus=" + processStatus + ", telecomsStatus="
 				+ telecomsStatus + ", overallStatus=" + overallStatus
 				+ ", answer=" + answer + ", questionid=" + questionid
-				+ ", comment=" + comment + "]";
-	}	
+				+ ", comment=" + comment + ", siteId=" + siteId + "]";
+	}
+
+	
 }
