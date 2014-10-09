@@ -151,7 +151,7 @@
 											<td><c:out value="${site.demand}" /></td>
 											<td><form:input path="siteId" value="${site.id}" readonly="" type="hidden" />
 											<label class="checkbox"> <form:checkbox
-														path="siteStatus" id="${site.id}" value="${site.id}" /></label></td>
+														path="siteId" id="${site.id}" value="${site.checked}"/></label></td>
 											<td>&nbsp;</td>
 										</tr>
 									</c:forEach>

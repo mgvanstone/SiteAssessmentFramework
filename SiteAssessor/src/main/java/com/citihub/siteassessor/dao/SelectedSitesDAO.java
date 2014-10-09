@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import com.citihub.siteassessor.Assessment;
+import com.citihub.siteassessor.SelectedSite;
+import com.citihub.siteassessor.Site;
+import com.citihub.siteassessor.User;
 
 /**
  * DAO for the portal exchanage database
@@ -18,15 +21,76 @@ import com.citihub.siteassessor.Assessment;
  */
 public class SelectedSitesDAO extends DAO {
 
-	public void updateResults(Assessment assessment) throws Exception {
+	/**
+	 * Read the database
+	 * 
+	 * @throws Exception
+	 */
+	public List<SelectedSite> readSelectedSites() throws Exception {
 		try {
 			dbconnect();
 
-			PreparedStatement stmt = connect.prepareStatement("update isselected = ? from assessment where submitter = ? and siteid = ?");			
+			statement = connect.createStatement();
+			// Result set get the result of the SQL query
+			resultSet = statement
+					.executeQuery("select id, submitter, siteid, isSelected from selectedsites");
 
-			stmt.setString(1, "true");			
-			stmt.setString(2, assessment.getSubmitter());
-			stmt.setString(3, assessment.getSiteId());			
+			return writeResultSet(resultSet);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			close();
+		}
+	}
+
+	
+	/**
+	 * Turns the result into a list of objects representing the rows.
+	 * 
+	 * @param resultSet
+	 * @return
+	 * @throws SQLException
+	 */
+	private ArrayList<SelectedSite> writeResultSet(ResultSet resultSet)
+			throws SQLException {
+		// ResultSet is initially before the first data set
+		ArrayList<SelectedSite> list = new ArrayList<SelectedSite>();
+
+		while (resultSet.next()) {
+			String id = resultSet.getString("id");
+			String submitter = resultSet.getString("submitter");
+			String siteId = resultSet.getString("siteid");
+			String isSelected = resultSet.getString("isSelected");			
+
+			SelectedSite selectedSite = new SelectedSite();
+			selectedSite.setId(id);
+			selectedSite.setSubmitter(submitter);
+			selectedSite.setSiteid(siteId);
+			if (isSelected.equals("true")) {
+				selectedSite.setSelected(true);
+			} else {
+				selectedSite.setSelected(false);
+			}
+			//System.out.println(dc.toString());
+			list.add(selectedSite);
+		}
+
+		return list;
+	}
+	
+	public void updateResults(String submitter, String siteId, boolean isSelected) throws Exception {
+		try {
+			dbconnect();
+
+			PreparedStatement stmt = connect.prepareStatement("update isselected = ? from selectedsites where submitter = ? and siteid = ?");			
+
+			stmt.setString(2, submitter);			
+			stmt.setString(3, siteId);
+			if (isSelected) 
+				stmt.setString(1, "true");
+			else
+				stmt.setString(1, "false");
 
 			stmt.executeUpdate();
 			
@@ -43,15 +107,19 @@ public class SelectedSitesDAO extends DAO {
 	 * 
 	 * @throws Exception
 	 */
-	public void saveResults(Assessment assessment) throws Exception {
+	public void saveResults(String submitter, String siteId, boolean isSelected) throws Exception {
 		try {
 			dbconnect();
 
-			PreparedStatement stmt = connect.prepareStatement("INSERT INTO assessment(submitter, siteid, submitdate) VALUES (?,?, ?)");			
+			PreparedStatement stmt = connect.prepareStatement("INSERT INTO selectedsites(submitter, siteid, isselected) VALUES (?,?,?)");			
 					
-			stmt.setString(1, assessment.getSubmitter());
-			stmt.setString(2, assessment.getSiteId());			
-			stmt.setTimestamp(3, new java.sql.Timestamp(System.currentTimeMillis()));
+			stmt.setString(1, submitter);
+			stmt.setString(2, siteId);
+			if (isSelected) 
+				stmt.setString(3, "true");
+			else
+				stmt.setString(3, "false");
+		//	stmt.setTimestamp(4, new java.sql.Timestamp(System.currentTimeMillis()));
 
 			stmt.executeUpdate();
 			

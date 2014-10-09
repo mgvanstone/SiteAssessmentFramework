@@ -79,20 +79,15 @@ public class LandingController {
 
 		String user = (String) session.getAttribute("logonUser");
 		for (int i = 0; i < sitecount; i++) {
-			//logger.info("Here " + selected.getSiteStatus()[i]);
-			if (!selected.getSiteStatus()[i].equals("")) {
-				Assessment assessment = new Assessment();
+//			logger.info("Here " + selected.getSiteStatus()[i]);
+			//if (!selected.getSiteStatus()[i].equals("")) {
 
-				assessment.setSiteId(selected.getSiteId()[i]);
-				assessment.setSubmitter(user);
-
-				try {
-					SelectedSitesDAO dao = new SelectedSitesDAO();
-					dao.saveResults(assessment);
-				} catch (Exception e) {
-					logger.error(e.getMessage());
-					return "error";
-				}
+			try {
+				SelectedSitesDAO dao = new SelectedSitesDAO();
+				dao.saveResults(user, selected.getSiteId()[i], true);
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+				return "error";
 			}
 		}
 

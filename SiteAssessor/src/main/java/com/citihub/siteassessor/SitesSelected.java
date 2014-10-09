@@ -8,6 +8,7 @@ public class SitesSelected {
 	private String submitter;
 	boolean isComplete;
 	String[] siteId;
+	boolean checked;
 	
 
 	public String[] getSiteId() {
@@ -36,6 +37,13 @@ public class SitesSelected {
 	}
 	public void setSiteStatus(String[] siteStatus) {
 		this.siteStatus = siteStatus;
+	}
+	
+	public boolean isChecked() {
+		return checked;
+	}
+	public void setChecked(boolean checked) {
+		this.checked = checked;
 	}
 	@Override
 	public String toString() {

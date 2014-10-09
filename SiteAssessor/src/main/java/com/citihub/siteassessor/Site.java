@@ -7,8 +7,16 @@ public class Site {
 	private String demand;
 	private String status;
 	private String pricing;
+	String checked = "on";
 	
-	
+	public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
+	}
+
 	public Site(String id, String name, String demand, String status, String pricing) {
 		super();
 		this.id = id;
