@@ -60,7 +60,6 @@ public class SitesDAO extends DAO {
 			String demand = resultSet.getString("demand");
 
 			Site dc = new Site(id, name, demand, "Not submitted", "");
-			dc.setChecked("true");
 			System.out.println(dc.toString());
 			list.add(dc);
 		}

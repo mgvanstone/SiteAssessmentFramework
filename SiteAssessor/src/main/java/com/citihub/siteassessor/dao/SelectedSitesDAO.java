@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import com.citihub.siteassessor.Assessment;
@@ -26,16 +28,18 @@ public class SelectedSitesDAO extends DAO {
 	 * 
 	 * @throws Exception
 	 */
-	public List<SelectedSite> readSelectedSites() throws Exception {
+	public Map<String, SelectedSite> readSelectedSites(String submitter) throws Exception {
 		try {
 			dbconnect();
 
-			statement = connect.createStatement();
 			// Result set get the result of the SQL query
-			resultSet = statement
-					.executeQuery("select id, submitter, siteid, isSelected from selectedsites");
+			PreparedStatement stmt = connect.prepareStatement("select siteid, submitter, isSelected from selectedsites where submitter = ?");			
 
-			return writeResultSet(resultSet);
+			stmt.setString(1, submitter);	
+
+			ResultSet rs = stmt.executeQuery();
+
+			return writeResultSet(rs);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -52,19 +56,19 @@ public class SelectedSitesDAO extends DAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	private ArrayList<SelectedSite> writeResultSet(ResultSet resultSet)
+	private Map<String, SelectedSite> writeResultSet(ResultSet resultSet)
 			throws SQLException {
 		// ResultSet is initially before the first data set
-		ArrayList<SelectedSite> list = new ArrayList<SelectedSite>();
+		HashMap<String, SelectedSite> map = new HashMap<String, SelectedSite>();
 
 		while (resultSet.next()) {
-			String id = resultSet.getString("id");
+//			String id = resultSet.getString("id");
 			String submitter = resultSet.getString("submitter");
 			String siteId = resultSet.getString("siteid");
 			String isSelected = resultSet.getString("isSelected");			
 
 			SelectedSite selectedSite = new SelectedSite();
-			selectedSite.setId(id);
+//			selectedSite.setId(id);
 			selectedSite.setSubmitter(submitter);
 			selectedSite.setSiteid(siteId);
 			if (isSelected.equals("true")) {
@@ -72,11 +76,12 @@ public class SelectedSitesDAO extends DAO {
 			} else {
 				selectedSite.setSelected(false);
 			}
-			//System.out.println(dc.toString());
-			list.add(selectedSite);
+			System.out.println("here " + selectedSite.toString());
+			//list.add(selectedSite);
+			map.put(siteId, selectedSite);
 		}
 
-		return list;
+		return map;
 	}
 	
 	public void updateResults(String submitter, String siteId, boolean isSelected) throws Exception {

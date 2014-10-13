@@ -7,16 +7,8 @@ public class Site {
 	private String demand;
 	private String status;
 	private String pricing;
-	String checked = "on";
+	private Boolean checked = Boolean.FALSE;
 	
-	public String getChecked() {
-		return checked;
-	}
-
-	public void setChecked(String checked) {
-		this.checked = checked;
-	}
-
 	public Site(String id, String name, String demand, String status, String pricing) {
 		super();
 		this.id = id;
@@ -26,6 +18,17 @@ public class Site {
 		this.pricing = pricing;
 	}
 	
+	
+	public Boolean getChecked() {
+		return checked;
+	}
+
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
+
+
 	public String getStatus() {
 		return status;
 	}
@@ -64,7 +67,7 @@ public class Site {
 	@Override
 	public String toString() {
 		return "Site [id=" + id + ", name=" + name + ", demand=" + demand
-				+ ", status=" + status + ", pricing=" + pricing + "]";
-	}	
-
+				+ ", status=" + status + ", pricing=" + pricing + ", checked="
+				+ checked + "]";
+	}
 }

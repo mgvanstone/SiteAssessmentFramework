@@ -148,10 +148,9 @@
 									<c:forEach var="site" items="${siteList}">
 										<tr>
 											<td><c:out value="${site.name}" /></td>
-											<td><c:out value="${site.demand}" /></td>
-											<td><form:input path="siteId" value="${site.id}" readonly="" type="hidden" />
-											<label class="checkbox"> <form:checkbox
-														path="siteId" id="${site.id}" value="${site.checked}"/></label></td>
+											<td><c:out value="${site.demand}" />
+											<input id="selected${site.id}" value="${site.checked}"  readonly="" type="hidden"/></td>											
+											<td><form:checkbox	path="siteId" id="${site.id}" value="${site.id}" /></td>
 											<td>&nbsp;</td>
 										</tr>
 									</c:forEach>
@@ -161,7 +160,6 @@
 					</table>
 				</form:form>
 			</div>
-
 		</div>
 		<div>
 			<button type="button" id="submit-btn" class="btn btn-primary">Start
@@ -177,7 +175,20 @@
 			<div class="modal-content">Submitter is a required field</div>
 		</div>
 	</div>
-	<script>
+	<script>	 		
+	    //$('#myForm input[type="checkbox"]').is(':checked')
+	 	$("input:checkbox").each(function(){
+   		 	var $this = $(this);
+   		 	var $id = $this.attr("id");
+   		 	var $line = "selected" + $id;
+   		 	//console.log($this.attr("id"));
+   		 	var $isChecked = $('#' + $line).val();
+   		 	//console.log($isChecked);
+   		 	if ($isChecked == "true") {
+   		 		$this.attr('checked', 'checked');
+   		 	} 
+		});   
+	    
 		$('#submit-btn').click(function() {
 
 		//	if ($("#submitter").val().length < 1) {
