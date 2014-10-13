@@ -1,19 +1,12 @@
 package com.citihub.siteassessor.dao;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
-import com.citihub.siteassessor.Assessment;
 import com.citihub.siteassessor.SelectedSite;
-import com.citihub.siteassessor.Site;
-import com.citihub.siteassessor.User;
 
 /**
  * DAO for the portal exchanage database
@@ -113,13 +106,11 @@ public class SelectedSitesDAO extends DAO {
 		HashMap<String, SelectedSite> map = new HashMap<String, SelectedSite>();
 
 		while (resultSet.next()) {
-//			String id = resultSet.getString("id");
 			String submitter = resultSet.getString("submitter");
 			String siteId = resultSet.getString("siteid");
 			String isSelected = resultSet.getString("isSelected");			
 
 			SelectedSite selectedSite = new SelectedSite();
-//			selectedSite.setId(id);
 			selectedSite.setSubmitter(submitter);
 			selectedSite.setSiteid(siteId);
 			if (isSelected.equals("true")) {
@@ -127,8 +118,7 @@ public class SelectedSitesDAO extends DAO {
 			} else {
 				selectedSite.setSelected(false);
 			}
-			System.out.println("here " + selectedSite.toString());
-			//list.add(selectedSite);
+
 			map.put(siteId, selectedSite);
 		}
 
