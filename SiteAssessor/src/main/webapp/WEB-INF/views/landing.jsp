@@ -149,7 +149,8 @@
 										<tr>
 											<td><c:out value="${site.name}" /></td>
 											<td><c:out value="${site.demand}" />
-											<input id="selected${site.id}" value="${site.checked}"  readonly="" type="hidden"/></td>											
+											<input id="selected${site.id}" value="${site.checked}"  readonly="" type="hidden"/>
+											<input id="siteStatus${site.id}" value="${site.id}"  readonly="" type="hidden"/></td>											
 											<td><form:checkbox	path="siteId" id="${site.id}" value="${site.id}" /></td>
 											<td>&nbsp;</td>
 										</tr>

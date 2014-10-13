@@ -60,8 +60,8 @@ public class HomeController {
 		List<Site> siteList = (List<Site>) session.getAttribute("siteList");
 
 		logger.info("countpos = " + sitespos + " sitescount = " + sitescount
-				+ " site " + sitesSelected.siteStatus[sitespos]);
-		int x = Integer.parseInt(sitesSelected.siteStatus[sitespos]);
+				+ " site " + sitesSelected.siteId[sitespos]);
+		int x = Integer.parseInt(sitesSelected.siteId[sitespos]);
 		Site site = (Site) siteList.get(x - 1);
 		logger.info("site: " + site);
 
@@ -144,16 +144,6 @@ public class HomeController {
 			i++;
 		}
 
-//		 logger.info("Answer list");
-//		 Iterator<String> it2 = assessment.getAnswer().iterator();
-//		 int i2 = 0;
-//		
-//		 while (it2.hasNext()) {
-//		 String q = it2.next();
-//		 logger.info("Answer " + q);
-//		 i2++;
-//		 }
-
 		// int sitespos =
 		// ((Integer)session.getAttribute("sitespos")).intValue();
 		int sitescount = ((Integer) session.getAttribute("sitescount"))
@@ -164,7 +154,7 @@ public class HomeController {
 
 		// logger.info("countpos = " + sitespos + " sitescount = " + sitescount
 		// + " site " + sitesSelected.siteStatus[sitespos]);
-		int x = Integer.parseInt(sitesSelected.siteStatus[sitespos]);
+		int x = Integer.parseInt(sitesSelected.siteId[sitespos]);
 		// Site site2 = (Site)siteList.get(x-1);
 		// logger.info("site: " + site2);
 

@@ -23,20 +23,12 @@ public class SitesSelected {
 	public void setComplete(boolean isComplete) {
 		this.isComplete = isComplete;
 	}
-	String [] siteStatus;
 		
 	public String getSubmitter() {
 		return submitter;
 	}
 	public void setSubmitter(String submitter) {
 		this.submitter = submitter;
-	}
-	
-	public String[] getSiteStatus() {
-		return siteStatus;
-	}
-	public void setSiteStatus(String[] siteStatus) {
-		this.siteStatus = siteStatus;
 	}
 	
 	public Boolean getChecked() {
@@ -48,7 +40,6 @@ public class SitesSelected {
 	@Override
 	public String toString() {
 		return "SitesSelected [submitter=" + submitter + ", isComplete="
-				+ isComplete + ", siteid=" + siteId + ", siteStatus="
-				+ Arrays.toString(siteStatus) + "]";
+				+ isComplete + ", siteid=" + siteId  + "]";
 	}
 }

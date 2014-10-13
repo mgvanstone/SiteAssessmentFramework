@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.citihub.siteassessor.dao.DAO;
 import com.citihub.siteassessor.dao.SelectedSitesDAO;
 import com.citihub.siteassessor.dao.SitesDAO;
 
@@ -34,25 +35,24 @@ public class LandingController {
 	public List<Site> addSiteListToRequestScope() {
 		SitesDAO dao = new SitesDAO();
 		List<Site> bean = null;
-		//logger.info("Inside of addStuffToRequestScope");
+		// logger.info("Inside of addStuffToRequestScope");
 		try {
 			bean = dao.readSites();
-			
+
 			SelectedSitesDAO ssDAO = new SelectedSitesDAO();
-			
-			String user = "citihub"; //(String)session.getAttribute("logonUser");
+
+			String user = "citihub"; // (String)session.getAttribute("logonUser");
 			logger.info("user " + user);
 			Map<String, SelectedSite> ss = ssDAO.readSelectedSites(user);
-			
+
 			Iterator<Site> sites = bean.iterator();
 			while (sites.hasNext()) {
-				Site site = (Site)sites.next();
-				
+				Site site = (Site) sites.next();
+
 				if (ss.containsKey(site.getId())) {
 					site.setChecked(Boolean.TRUE);
 				}
 				logger.info("Here" + site);
-				
 
 			}
 		} catch (Exception e) {
@@ -91,24 +91,25 @@ public class LandingController {
 			return "redirect:logon";
 		}
 
+		String user = (String) session.getAttribute("logonUser");
+
 		int sitecount = selected.siteId.length;
 		session.setAttribute("sitescount", new Integer(sitecount));
 		logger.info("sitecount = " + sitecount);
 		session.setAttribute("sitespos", new Integer(0));
 		session.setAttribute("sitesselected", selected);
+		Map<String, SelectedSite> map = null;
 
-		String user = (String) session.getAttribute("logonUser");
-		for (int i = 0; i < sitecount; i++) {
-//			logger.info("Here " + selected.getSiteStatus()[i]);
-			//if (!selected.getSiteStatus()[i].equals("")) {
-
-			try {
-				SelectedSitesDAO dao = new SelectedSitesDAO();
+		try {
+			SelectedSitesDAO dao = new SelectedSitesDAO();
+			dao.deleteSelectedSites(user);
+			
+			for (int i = 0; i < sitecount; i++) {
 				dao.saveResults(user, selected.getSiteId()[i], true);
-			} catch (Exception e) {
-				logger.error(e.getMessage());
-				return "error";
 			}
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return "error";
 		}
 
 		return "redirect:home";
