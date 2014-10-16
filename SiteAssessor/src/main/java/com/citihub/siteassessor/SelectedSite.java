@@ -1,5 +1,10 @@
 package com.citihub.siteassessor;
 
+/**
+ * Selected site 
+ * @author citihubuser
+ *
+ */
 public class SelectedSite {
 	public String id;
 	public String submitter;

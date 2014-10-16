@@ -11,7 +11,7 @@ import com.citihub.siteassessor.Reference;
 
 
 /**
- * DAO for the portal exchanage database
+ * DAO for the question table
  * 
  * @author citihubuser
  * 

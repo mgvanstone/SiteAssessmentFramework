@@ -2,6 +2,11 @@ package com.citihub.siteassessor;
 
 import java.util.List;
 
+/**
+ * List of questions and contains any existing responses
+ * @author citihubuser
+ *
+ */
 public class Question {
 	private String id;
 	private int question_order;

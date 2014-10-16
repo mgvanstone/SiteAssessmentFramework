@@ -1,5 +1,10 @@
 package com.citihub.siteassessor;
 
+/**
+ * User details 
+ * @author citihubuser
+ *
+ */
 public class User {
 	private String id;
 	private String user;

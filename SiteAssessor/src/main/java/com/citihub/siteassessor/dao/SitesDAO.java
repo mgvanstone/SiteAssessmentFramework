@@ -10,7 +10,7 @@ import com.citihub.siteassessor.Site;
 
 
 /**
- * DAO for the portal exchanage database
+ * DAO for the sites
  * 
  * @author citihubuser
  * 

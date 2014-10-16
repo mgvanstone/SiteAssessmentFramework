@@ -22,7 +22,7 @@ import com.citihub.siteassessor.dao.QuestionDAO;
 import com.citihub.siteassessor.dao.UsersDAO;
 
 /**
- * Handles requests for the application home page.
+ * Handles requests for the application logon page.
  */
 @Controller
 public class LogonController {

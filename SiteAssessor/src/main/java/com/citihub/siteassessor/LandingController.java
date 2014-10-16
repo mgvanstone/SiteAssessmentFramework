@@ -22,7 +22,7 @@ import com.citihub.siteassessor.dao.SelectedSitesDAO;
 import com.citihub.siteassessor.dao.SitesDAO;
 
 /**
- * Handles requests for the application home page.
+ * Handles requests for the application landing page.
  */
 @Controller
 @SessionAttributes("siteList")

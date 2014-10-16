@@ -125,6 +125,7 @@ public class HomeController {
 		return "home";
 	}
 
+	// Post of results from the assessment
 	@RequestMapping(value = "home", method = RequestMethod.POST)
 	public String submitForm(@ModelAttribute Assessment assessment, Model m,
 			HttpServletRequest request, HttpSession session) {
@@ -154,6 +155,8 @@ public class HomeController {
 		AnswerDAO ansDAO = new AnswerDAO();
 		try {
 			questionList = questionDAO.readQuestions();
+			
+			// Delete any existing answers for the page and save the replacement answers
 			ansDAO.deleteUserAnswers(user, assessment.getSiteId());
 			ansDAO.saveResults(questionList, assessment);
 		} catch (Exception e) {

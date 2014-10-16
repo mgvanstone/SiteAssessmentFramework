@@ -5,6 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * DAO 
+ * @author citihubuser
+ *
+ */
 public abstract class DAO {
 	Connection connect = null;
 	Statement statement = null;

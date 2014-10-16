@@ -1,6 +1,10 @@
 package com.citihub.siteassessor;
 
-
+/**
+ * List of the sites selected by the user
+ * @author citihubuser
+ *
+ */
 public class SitesSelected {
 
 	private String submitter;

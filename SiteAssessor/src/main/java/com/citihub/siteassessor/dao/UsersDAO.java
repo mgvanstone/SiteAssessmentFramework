@@ -10,14 +10,14 @@ import com.citihub.siteassessor.User;
 
 
 /**
- * DAO for the portal exchanage database
+ * DAO for the users
  * 
  * @author citihubuser
  * 
  */
 public class UsersDAO extends DAO {
 
-
+	private final String QUERY = "select id, user, password, status from users";
 	/**
 	 * Read the database
 	 * 
@@ -30,7 +30,7 @@ public class UsersDAO extends DAO {
 			statement = connect.createStatement();
 			// Result set get the result of the SQL query
 			resultSet = statement
-					.executeQuery("select id, user, password, status from users");
+					.executeQuery(QUERY);
 
 			return writeResultSet(resultSet);
 		} catch (Exception e) {
@@ -61,7 +61,7 @@ public class UsersDAO extends DAO {
 			String status = resultSet.getString("status");			
 
 			User dc = new User(id, user, password, status);
-			//System.out.println(dc.toString());
+
 			list.add(dc);
 		}
 

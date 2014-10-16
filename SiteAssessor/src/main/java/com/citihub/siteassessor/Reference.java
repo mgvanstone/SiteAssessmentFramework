@@ -1,5 +1,10 @@
 package com.citihub.siteassessor;
 
+/**
+ * Reference list for a dropdown list
+ * @author citihubuser
+ *
+ */
 public class Reference {
 	private int tier;
 	private String requirement;

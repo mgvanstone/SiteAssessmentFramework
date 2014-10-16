@@ -2,6 +2,11 @@ package com.citihub.siteassessor;
 
 import java.util.List;
 
+/**
+ * Result of the assessment on the home page
+ * @author citihubuser
+ *
+ */
 public class Assessment {
 	private String submitter;
 	private String name;
@@ -111,8 +116,7 @@ public class Assessment {
 	public void setComment(List<String> comment) {
 		this.comment = comment;
 	}
-	
-	
+		
 	public String getSiteId() {
 		return siteId;
 	}
@@ -130,7 +134,5 @@ public class Assessment {
 				+ telecomsStatus + ", overallStatus=" + overallStatus
 				+ ", answer=" + answer + ", questionid=" + questionid
 				+ ", comment=" + comment + ", siteId=" + siteId + "]";
-	}
-
-	
+	}	
 }

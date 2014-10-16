@@ -9,7 +9,7 @@ import java.util.Map;
 import com.citihub.siteassessor.SelectedSite;
 
 /**
- * DAO for the portal exchanage database
+ * DAO for the selected sites
  * 
  * @author citihubuser
  * 

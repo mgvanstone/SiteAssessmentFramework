@@ -1,6 +1,11 @@
 package com.citihub.siteassessor;
 
 
+/**
+ * Details of the site
+ * @author citihubuser
+ *
+ */
 public class Site {
 	private String id;
 	private String name;

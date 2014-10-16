@@ -1,5 +1,10 @@
 package com.citihub.siteassessor;
 
+/**
+ * Logon details
+ * @author citihubuser
+ *
+ */
 public class Logon {
 	private String username;
 	private String password;

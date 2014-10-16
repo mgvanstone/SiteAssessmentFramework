@@ -1,5 +1,10 @@
 package com.citihub.siteassessor;
 
+/**
+ * Answers to questions coming back from the database
+ * @author citihubuser
+ *
+ */
 public class Answer {
 	private String questionId;
 	private String answer;
