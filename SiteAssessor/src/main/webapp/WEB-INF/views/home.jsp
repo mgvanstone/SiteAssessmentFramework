@@ -16,7 +16,7 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/datepicker.css" />">
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/citihub.css" />">	
+	href="<c:url value="/resources/css/citihub.css" />">
 <script type="text/javascript"
 	src="http://code.jquery.com/jquery-2.1.1.js"></script>
 <script
@@ -46,7 +46,7 @@
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="navbarCollapse">
 			<ul class="nav navbar-nav">
-				<li><a href="logout">Logout</a></li>						
+				<li><a href="logout">Logout</a></li>
 			</ul>
 		</div>
 	</div>
@@ -65,19 +65,19 @@
 					<tr class="active">
 						<td>${site.name}&nbsp;:&nbsp;${site.demand}</td>
 						<td>&nbsp;</td>
-						<td>
-
-						</td>
+						<td></td>
 					</tr>
 				</tbody>
 			</table>
 			<ul class="nav nav-tabs">
 			</ul>
-			
+
 			<div class="tab-content">
 				<div class="tab-pane  active" id="electrical">
 					<div class="panel panel-primary">
-						<div class="panel-heading" id="electricalStatusLabel">Questions regarding <b>${site.name}</b> facility:</div>
+						<div class="panel-heading" id="electricalStatusLabel">
+							Questions regarding <b>${site.name}</b> facility:
+						</div>
 						<form:input path="electricalStatus" id="electricalStatus"
 							placeholder="electrical status" size="50" maxlength="50"
 							readonly="" type="hidden"></form:input>
@@ -87,7 +87,7 @@
 									<tr>
 										<th width="20%">Category</th>
 										<th width="30%">Question</th>
-										<th width="1%"></th>										
+										<th width="1%"></th>
 										<th width="25%">Answer</th>
 										<th width="24%">Further Comments</th>
 									</tr>
@@ -104,31 +104,34 @@
 															rel="popover" data-trigger="hover" data-container="body"
 															data-placement="auto right"
 															data-content="${question.helptext}"
-															data-original-title="Question Help"></span>
-														</td>														
-														<td>
-															<form:input path="questionid"
-																value="${question.id}" readonly="" type="hidden" />
+															data-original-title="Question Help"></span></td>
+														<td><form:input path="questionid"
+																value="${question.id}" id="${question.id}" readonly=""
+																type="hidden" /> <input id="oldanswer${question.id}"
+															value="${question.answer}" readonly="" type="hidden" />
+															<input id="type${question.id}"
+																value="${question.questionType}" readonly="" type="hidden" /> 
 															<c:choose>
 																<c:when test="${empty question.referenceList}">
-																	<form:textarea path="answer" class="form-control" rows="3"/>
+																	<form:textarea path="answer" id="answer${question.id}"
+																		class="form-control" rows="3" />
 																</c:when>
-															<c:otherwise>
-			  													<form:select
-																	class="form-control" path="answer" multiple="single">
-																	<c:forEach var="refList" varStatus="i"
-																		items="${question.referenceList}">
-																		<option value="<c:out value="${i.index}"/>">
-																			<c:out value="${refList.requirement}" />
-																		</option>
-																	</c:forEach>
-																</form:select>
+																<c:otherwise>
+																	<form:select class="form-control" path="answer"
+																		multiple="single" id="answer${question.id}">
+																		<c:forEach var="refList" varStatus="i"
+																			items="${question.referenceList}">
+																			<option value="<c:out value="${i.index}"/>">
+																				<c:out value="${refList.requirement}" />
+																			</option>
+																		</c:forEach>
+																	</form:select>
 																</c:otherwise>
-															</c:choose>
-														</td>
-														<td>
-															<form:textarea path="comment" class="form-control" id="comment" rows="3"></form:textarea>
-														</td>
+															</c:choose></td>
+														<td><input id="oldcomment${question.id}"
+															value="${question.comment}" readonly="" type="hidden" />
+															<textarea class="form-control" id="comment${question.id}"
+																name="comment" rows="3"></textarea></td>
 													</tr>
 												</c:if>
 											</c:forEach>
@@ -140,14 +143,18 @@
 					</div>
 				</div>
 			</div>
-	<!-- 		<span class="btn btn-primary btn-file">
+			<!-- 		<span class="btn btn-primary btn-file">
 		  			Upload supplementary documentation <input type="file">
-			</span>-->			
+			</span>-->
 			<button type="button" id="loading-example-btn"
 				class="btn btn-primary">${action}</button>&nbsp;&nbsp;
-			<button type="button" id="save-progress-btn"
-				class="btn btn-primary">Save Progress</button>		
-			<br><br>	
+			<button type="button" id="save-progress-btn" class="btn btn-primary">Save
+				Progress</button>
+			<br>
+			<br>
+			<form:input path="saveonly" value="false" readonly="" type="hidden" />
+			<form:input path="siteId" value="${site.id}" readonly=""
+				type="hidden" />
 		</form:form>
 		<div class="row">
 			<div class="col-xs-12">
@@ -203,20 +210,42 @@
 	</script>
 	<script>
 		$('#loading-example-btn').click(function() {
-
 			$('#myForm').submit();
 		});
 
-		function changeFunc() {
-			//alert("hi");
-		}
-		
 		$('#save-progress-btn').click(function() {
-
+			$("#saveonly").val("true");
 			$('#myForm').submit();
 		});
-		
-		$('select[name="answer"]').find('option[value="0"]').attr("selected",true);
+
+		$('select[id="questionid"]').each(
+				function() {
+
+					var $this = $(this);
+					var $id = $this.attr("id");
+					alert("hi" + $id);					
+					var $newval = $('#oldanswer' + $id).val();
+
+					$('#' + $id + ' option:contains("' + $newval + '")')
+							.prop('selected', true);
+				});
+
+		// Update the textboxes with any existing values from the database
+		$('input[name="questionid"]').each(function() {
+			var $this = $(this);
+			var $id = $this.attr("id");
+			
+			// Check the question type and display any existing values
+			if ($('#type' + $id).val() == "LIST") {
+				// Select previous value from the Dropdown list 
+				var $newval = $('#oldanswer' + $id).val();
+				$('#answer' + $id + ' option:contains("' + $newval + '")').prop('selected', true);				
+			} else {
+				// Text box input
+				$('#comment' + $id).val($('#oldcomment' + $id).val());
+				$('#answer' + $id).val($('#oldanswer' + $id).val());
+			}
+		});
 	</script>
 </body>
 </html>

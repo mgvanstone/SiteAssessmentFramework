@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ import com.citihub.siteassessor.dao.AnswerDAO;
 import com.citihub.siteassessor.dao.QuestionDAO;
 import com.citihub.siteassessor.dao.SelectedSitesDAO;
 import com.citihub.siteassessor.Constants;
+
 /**
  * Handles requests for the application home page.
  */
@@ -38,11 +40,14 @@ public class HomeController {
 			HttpSession session) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
+		// check if user logged on
 		if (session.getAttribute("logonUser") == null) {
 			logger.info("User not logged in");
 			return "redirect:logon";
 		}
 
+		String user = (String) session.getAttribute("logonUser");
+		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
 				DateFormat.LONG, locale);
@@ -69,28 +74,52 @@ public class HomeController {
 		session.setAttribute("site", site);
 		site.setStatus("Completed");
 		siteList.set(x - 1, site);
-		if (sitespos == sitescount - 1) {
-			model.addAttribute(Constants.SESSION_VAR_ACTION, Constants.ACTION_SUBMIT);
-			session.setAttribute(Constants.SESSION_VAR_ACTION, Constants.ACTION_SUBMIT);
-		} else {
-			model.addAttribute(Constants.SESSION_VAR_ACTION, Constants.ACTION_NEXT);
-			session.setAttribute(Constants.SESSION_VAR_ACTION, Constants.ACTION_NEXT);
-		}
 
+		// Check if last site
+		if (sitespos == sitescount - 1) {
+			model.addAttribute(Constants.SESSION_VAR_ACTION,
+					Constants.ACTION_SUBMIT);
+			session.setAttribute(Constants.SESSION_VAR_ACTION,
+					Constants.ACTION_SUBMIT);
+		} else {
+			model.addAttribute(Constants.SESSION_VAR_ACTION,
+					Constants.ACTION_NEXT);
+			session.setAttribute(Constants.SESSION_VAR_ACTION,
+					Constants.ACTION_NEXT);
+		}
+ 
 		QuestionDAO dao = new QuestionDAO();
+		AnswerDAO ansDAO = new AnswerDAO();
+		
 		try {
+			// Get the questions for the site
 			List<Question> questionList = dao.readQuestions();
 
 			model.addAttribute("questionList", questionList);
 
-			if (logger.isInfoEnabled()) {
+			if (logger.isDebugEnabled()) {
 				Iterator<Question> it = questionList.iterator();
 				while (it.hasNext()) {
-					logger.info("" + it.next());
+					logger.debug("" + it.next());
 				}
 			}
+			
+			// Get any existing answers for the site
+			Map<String, Answer> ansMap = ansDAO.readAnswers(user, site.getId());	
+			//model.addAttribute("answerMap", ansMap);
+
+			Iterator<Question> it = questionList.iterator();
+			while (it.hasNext()) {
+				Question q = (Question)it.next();
+				if (ansMap.containsKey(q.getId())) {
+					Answer ans = ansMap.get(q.getId());
+					q.setAnswer(ans.getAnswer());
+					q.setComment(ans.getComment());
+				}
+			}			
 		} catch (Exception e1) {
-			System.out.println("Exception list");
+			e1.printStackTrace();
+			return "error";
 		}
 
 		return "home";
@@ -105,6 +134,7 @@ public class HomeController {
 			return "redirect:logon";
 		}
 
+		logger.info("saveonly " + assessment.getSaveonly());
 		List<Question> questionList = null;
 		QuestionDAO questionDAO = new QuestionDAO();
 
@@ -114,15 +144,17 @@ public class HomeController {
 		SitesSelected sitesselected = (SitesSelected) session
 				.getAttribute("sitesselected");
 
+		String user = (String) session.getAttribute("logonUser");
 		SelectedSitesDAO assDAO = new SelectedSitesDAO();
 		assessment.setName(site.getName());
-		assessment.setSubmitter((String) session.getAttribute("logonUser"));
+		assessment.setSubmitter(user);
 
 		logger.info(assessment.toString());
 
 		AnswerDAO ansDAO = new AnswerDAO();
 		try {
 			questionList = questionDAO.readQuestions();
+			ansDAO.deleteUserAnswers(user, assessment.getSiteId());
 			ansDAO.saveResults(questionList, assessment);
 		} catch (Exception e) {
 			logger.error(e.toString());
@@ -144,32 +176,26 @@ public class HomeController {
 			i++;
 		}
 
-		// int sitespos =
-		// ((Integer)session.getAttribute("sitespos")).intValue();
 		int sitescount = ((Integer) session.getAttribute("sitescount"))
 				.intValue();
 		SitesSelected sitesSelected = (SitesSelected) session
 				.getAttribute("sitesselected");
 		List<Site> siteList = (List<Site>) session.getAttribute("siteList");
 
-		// logger.info("countpos = " + sitespos + " sitescount = " + sitescount
-		// + " site " + sitesSelected.siteStatus[sitespos]);
 		int x = Integer.parseInt(sitesSelected.siteId[sitespos]);
-		// Site site2 = (Site)siteList.get(x-1);
-		// logger.info("site: " + site2);
-
-		// m.addAttribute("site", site);
-		// session.setAttribute("site", site);
-		if (found) {		
-			site.setPricing(assessment.getAnswer().get(i-1));
+		if (found) {
+			site.setPricing(assessment.getAnswer().get(i - 1));
 			siteList.set(x - 1, site);
 		}
 
 		// move forward to the next facility
-		sitespos++;
-		session.setAttribute("sitespos", new Integer(sitespos));
-		
-		String action = (String) session.getAttribute(Constants.SESSION_VAR_ACTION);
+		if (!assessment.getSaveonly().equals("true")) {
+			sitespos++;
+			session.setAttribute("sitespos", new Integer(sitespos));
+		}
+
+		String action = (String) session
+				.getAttribute(Constants.SESSION_VAR_ACTION);
 		if (!action.equals(Constants.ACTION_SUBMIT)) {
 			// Go to the next facility
 			logger.info("Submit pressed");

@@ -1,9 +1,5 @@
 package com.citihub.siteassessor;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;

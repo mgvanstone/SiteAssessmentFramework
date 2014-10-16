@@ -10,8 +10,34 @@ public class Question {
 	private String category;
 	private String subcategory;
 	private String helptext;
+	private String answer;
+	private String comment;
+	private String questionType;
 
-	
+	public String getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
 	public int getQuestion_order() {
 		return question_order;
 	}
@@ -73,6 +99,8 @@ public class Question {
 		return "Question [id=" + id + ", question_order=" + question_order
 				+ ", question=" + question + ", referenceList=" + referenceList
 				+ ", category=" + category + ", subcategory=" + subcategory
-				+ ", helptext=" + helptext + "]";
-	}
+				+ ", helptext=" + helptext + ", answer=" + answer
+				+ ", comment=" + comment + ", questionType=" + questionType
+				+ "]";
+	}	
 }

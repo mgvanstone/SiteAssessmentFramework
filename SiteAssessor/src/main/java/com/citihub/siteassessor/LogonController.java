@@ -85,10 +85,9 @@ public class LogonController {
 	@RequestMapping(value = "/logon", method = RequestMethod.POST)
 	public String submitForm(@ModelAttribute Logon logon, Model m, HttpServletRequest request, HttpSession session) {
 
-		logger.info("Submitted logon username=" + logon.getUsername() + " password " + logon.getPassword());
+		logger.info("Submitted logon username=" + logon.getUsername());
 		
-		if (!checkUser(logon.getUsername(), logon.getPassword())) {
-			
+		if (!checkUser(logon.getUsername(), logon.getPassword())) {			
 			return "logon";
 		}
 				

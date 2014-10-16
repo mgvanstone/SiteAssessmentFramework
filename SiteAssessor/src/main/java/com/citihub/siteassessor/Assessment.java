@@ -18,7 +18,14 @@ public class Assessment {
 	private List<String> comment;
 	private String siteId;
 	private boolean isSelected;
+	private String saveonly;
 	
+	public String getSaveonly() {
+		return saveonly;
+	}
+	public void setSaveonly(String saveonly) {
+		this.saveonly = saveonly;
+	}
 	public boolean isSelected() {
 		return isSelected;
 	}
