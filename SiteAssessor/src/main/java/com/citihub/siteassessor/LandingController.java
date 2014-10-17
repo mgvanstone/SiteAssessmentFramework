@@ -22,7 +22,8 @@ import com.citihub.siteassessor.dao.SelectedSitesDAO;
 import com.citihub.siteassessor.dao.SitesDAO;
 
 /**
- * Handles requests for the application landing page.
+ * Handles requests for the application landing page, i.e. the page that displays a 
+ * list of sites to select from.
  */
 @Controller
 @SessionAttributes("siteList")
@@ -32,17 +33,17 @@ public class LandingController {
 			.getLogger(LandingController.class);
 
 	@ModelAttribute("siteList")
-	public List<Site> addSiteListToRequestScope() {
+	public List<Site> addSiteListToRequestScope(HttpSession session) {
 		SitesDAO dao = new SitesDAO();
 		List<Site> bean = null;
-		// logger.info("Inside of addStuffToRequestScope");
+
 		try {
 			bean = dao.readSites();
 
 			SelectedSitesDAO ssDAO = new SelectedSitesDAO();
 
 			String user = "citihub"; // (String)session.getAttribute("logonUser");
-			logger.info("user " + user);
+			logger.info("user " + (String)session.getAttribute("logonUser"));
 			Map<String, SelectedSite> ss = ssDAO.readSelectedSites(user);
 
 			Iterator<Site> sites = bean.iterator();
@@ -63,7 +64,7 @@ public class LandingController {
 	}
 
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * Used for the landing page view
 	 */
 	@RequestMapping(value = "landing", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpServletRequest request,
@@ -75,6 +76,8 @@ public class LandingController {
 			return "redirect:logon";
 		}
 
+//		session.setAttribute("siteList", addSiteListToRequestScope());
+//		model.addAttribute("siteList", addSiteListToRequestScope());		
 		model.addAttribute("sitesselected", new SitesSelected());
 
 		logger.info("logon user: " + (String) session.getAttribute("logonUser"));
@@ -82,6 +85,7 @@ public class LandingController {
 		return "landing";
 	}
 
+	// Handle the form posted back
 	@RequestMapping(value = "landing", method = RequestMethod.POST)
 	public String submitForm(@ModelAttribute SitesSelected selected, Model m,
 			HttpServletRequest request, HttpSession session) {
@@ -102,8 +106,11 @@ public class LandingController {
 
 		try {
 			SelectedSitesDAO dao = new SelectedSitesDAO();
+			
+			// delete any existing sites previously selected
 			dao.deleteSelectedSites(user);
 			
+			// Store the selected sites
 			for (int i = 0; i < sitecount; i++) {
 				dao.saveResults(user, selected.getSiteId()[i], true);
 			}

@@ -24,6 +24,7 @@ import com.citihub.siteassessor.Reference;
  */
 public class AnswerDAO extends DAO {
 
+	private static final String sql = "delete from selectedsites where submitter = ? and siteid = ?";
 	/**
 	 * Delete users answers for a site from the database
 	 * 
@@ -34,7 +35,7 @@ public class AnswerDAO extends DAO {
 			dbconnect();
 
 			// Result set get the result of the SQL query
-			PreparedStatement stmt = connect.prepareStatement("delete from selectedsites where submitter = ? and siteid = ?");	
+			PreparedStatement stmt = connect.prepareStatement(sql);	
 			connect.setAutoCommit(true);
 
 			stmt.setString(1, submitter);

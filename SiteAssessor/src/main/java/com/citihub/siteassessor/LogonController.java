@@ -56,27 +56,25 @@ public class LogonController {
 	 * @param password
 	 * @return
 	 */
-	private boolean checkUser(String user, String password) {
+	private boolean checkUser(String username, String password) throws Exception {
 		boolean result = false;
 		
 		UsersDAO userDAO = new UsersDAO();
 		try {
-			List<User> users = userDAO.readUser();
-			Iterator<User> it = users.iterator();
+			User user = userDAO.readUser(username);
+
+			if (user == null) {
+				logger.info("Invalid user " + username);
+				return false;
+			}
 			
-			while (it.hasNext()) {
-				User user2 = it.next();
-				if (user2.getUser().equals(user)) {
-					logger.debug("User match");
-					if (user2.getPassword().equals(password)) {
-						logger.debug("Password match");
-						result = true;
-					}
-					break;
-				}
+			if (password.equals(user.getPassword())) {
+				logger.info("Valid user");
+				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
 		return result;
 	}
@@ -86,9 +84,23 @@ public class LogonController {
 	public String submitForm(@ModelAttribute Logon logon, Model m, HttpServletRequest request, HttpSession session) {
 
 		logger.info("Submitted logon username=" + logon.getUsername());
-		
-		if (!checkUser(logon.getUsername(), logon.getPassword())) {			
+
+		if (logon.getUsername() == null || logon.getPassword() == null) {
+			logger.info("User rejected");
 			return "logon";
+		}
+				
+		try {
+			boolean isUserValid = checkUser(logon.getUsername(), logon.getPassword());
+			
+			if (!isUserValid) {
+				logger.info("User " + logon.getUsername() + " rejected.");
+				return "logon";
+			}
+		} catch (Exception e) {
+			logger.error("Systems errror: " + e.getMessage());
+			e.printStackTrace();
+			return "error";
 		}
 				
 		m.addAttribute("assessment", new Assessment());
@@ -96,15 +108,22 @@ public class LogonController {
 		
 		logger.info("logon user: " + (String)session.getAttribute("logonUser"));
 		
+		// Retrieve the question list
+		// TODO: Do we still need this?
 		QuestionDAO dao = new QuestionDAO();
 		try {
 			List<Question> questionList = dao.readQuestions();
 
 			m.addAttribute("questionList", questionList);
 		} catch (Exception e) {
-			System.out.println("Exception list");
+			logger.error("Systems errror: " + e.getMessage());
+			
+			e.printStackTrace();
+
+			return "error";
 		}		
-		
+
+		logger.info("User logged in");
 		return "redirect:landing";
 	}
 }
