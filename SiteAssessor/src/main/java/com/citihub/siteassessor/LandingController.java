@@ -42,8 +42,10 @@ public class LandingController {
 
 			SelectedSitesDAO ssDAO = new SelectedSitesDAO();
 
-			String user = "citihub"; // (String)session.getAttribute("logonUser");
+			String user = (String)session.getAttribute("logonUser");
 			logger.info("user " + (String)session.getAttribute("logonUser"));
+			logger.info("Retriving list of sites for " + user);
+			
 			Map<String, SelectedSite> ss = ssDAO.readSelectedSites(user);
 
 			Iterator<Site> sites = bean.iterator();
@@ -53,7 +55,7 @@ public class LandingController {
 				if (ss.containsKey(site.getId())) {
 					site.setChecked(Boolean.TRUE);
 				}
-				logger.info("Here" + site);
+				logger.info("Landing site: " + site);
 
 			}
 		} catch (Exception e) {
@@ -75,9 +77,7 @@ public class LandingController {
 			logger.info("User not logged in");
 			return "redirect:logon";
 		}
-
-//		session.setAttribute("siteList", addSiteListToRequestScope());
-//		model.addAttribute("siteList", addSiteListToRequestScope());		
+	
 		model.addAttribute("sitesselected", new SitesSelected());
 
 		logger.info("logon user: " + (String) session.getAttribute("logonUser"));
@@ -102,7 +102,6 @@ public class LandingController {
 		logger.info("sitecount = " + sitecount);
 		session.setAttribute("sitespos", new Integer(0));
 		session.setAttribute("sitesselected", selected);
-		Map<String, SelectedSite> map = null;
 
 		try {
 			SelectedSitesDAO dao = new SelectedSitesDAO();
@@ -113,6 +112,7 @@ public class LandingController {
 			// Store the selected sites
 			for (int i = 0; i < sitecount; i++) {
 				dao.saveResults(user, selected.getSiteId()[i], true);
+				logger.info("Saved site " + selected.getSiteId()[i]);
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());

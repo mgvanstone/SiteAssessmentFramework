@@ -24,7 +24,7 @@ import com.citihub.siteassessor.Reference;
  */
 public class AnswerDAO extends DAO {
 
-	private static final String sql = "delete from selectedsites where submitter = ? and siteid = ?";
+	private static final String sql = "delete from answer where submitter = ? and siteid = ?";
 	/**
 	 * Delete users answers for a site from the database
 	 * 

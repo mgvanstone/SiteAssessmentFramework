@@ -146,7 +146,6 @@ public class HomeController {
 				.getAttribute("sitesselected");
 
 		String user = (String) session.getAttribute("logonUser");
-		SelectedSitesDAO assDAO = new SelectedSitesDAO();
 		assessment.setName(site.getName());
 		assessment.setSubmitter(user);
 
@@ -191,21 +190,25 @@ public class HomeController {
 			siteList.set(x - 1, site);
 		}
 
-		// move forward to the next facility
 		if (!assessment.getSaveonly().equals("true")) {
+			// move forward to the next facility			
 			sitespos++;
 			session.setAttribute("sitespos", new Integer(sitespos));
+		} else {
+			// Save only
+			logger.info("Save only pressed");
+			return "redirect:home";			
 		}
 
 		String action = (String) session
 				.getAttribute(Constants.SESSION_VAR_ACTION);
-		if (!action.equals(Constants.ACTION_SUBMIT)) {
+		if (action.equals(Constants.ACTION_SUBMIT)) {
 			// Go to the next facility
 			logger.info("Submit pressed");
-			return "redirect:home";
+			return "redirect:result";
 		}
 
 		logger.info("redirect to result");
-		return "redirect:result";
+		return "redirect:home";
 	}
 }

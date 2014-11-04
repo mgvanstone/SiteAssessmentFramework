@@ -76,6 +76,7 @@ public class SelectedSitesDAO extends DAO {
 		try {
 			dbconnect();
 
+			System.out.println("Dlete");
 			// Result set get the result of the SQL query
 			PreparedStatement stmt = connect.prepareStatement("delete from selectedsites where submitter = ?");	
 			connect.setAutoCommit(true);
@@ -105,7 +106,9 @@ public class SelectedSitesDAO extends DAO {
 		// ResultSet is initially before the first data set
 		HashMap<String, SelectedSite> map = new HashMap<String, SelectedSite>();
 
+		System.out.println("here");
 		while (resultSet.next()) {
+			
 			String submitter = resultSet.getString("submitter");
 			String siteId = resultSet.getString("siteid");
 			String isSelected = resultSet.getString("isSelected");			
@@ -119,6 +122,8 @@ public class SelectedSitesDAO extends DAO {
 				selectedSite.setSelected(false);
 			}
 
+			System.out.println("In list " + isSelected);
+			
 			map.put(siteId, selectedSite);
 		}
 

@@ -105,6 +105,7 @@ public class LogonController {
 				
 		m.addAttribute("assessment", new Assessment());
 		session.setAttribute("logonUser", logon.getUsername());
+		m.addAttribute("logonUser", logon.getUsername());		
 		
 		logger.info("logon user: " + (String)session.getAttribute("logonUser"));
 		

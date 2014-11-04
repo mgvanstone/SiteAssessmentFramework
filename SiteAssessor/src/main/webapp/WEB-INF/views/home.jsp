@@ -240,7 +240,8 @@
 			if ($('#type' + $id).val() == "LIST") {
 				// Select previous value from the Dropdown list 
 				var $newval = $('#oldanswer' + $id).val();
-				$('#answer' + $id + ' option:contains("' + $newval + '")').prop('selected', true);				
+				$('#answer' + $id + ' option:contains("' + $newval + '")').prop('selected', true);
+				$('#comment' + $id).val($('#oldcomment' + $id).val());				
 			} else {
 				// Text box input
 				$('#comment' + $id).val($('#oldcomment' + $id).val());
